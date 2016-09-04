@@ -1,18 +1,23 @@
 #include "validate.h"
 
+// is path traversal ?
 bool path_is_valid(char * path)
 {
     struct stat sb;
     char *blacklist[]={"..\\","../","%2e","%5c","%2f","%255c","%252e","%9c","%c\0"};
     short sizelist=0;
-    size_t sizepath=strlen(path);
+    size_t sizepath=0;
+
+	if(path==NULL)
+		return false;
 
 	while(sizelist!=9)
 	{
-		if(path!=NULL)
-			if(strlen(path)>2)
-				if(strnstr(path,blacklist[sizelist],sizepath))
-					return false;
+		sizepath=strlen(blacklist[sizelist]);	
+
+			if(strnstr(path,blacklist[sizelist],sizepath))
+				return false;
+
 		sizelist++;
 	}
 
@@ -30,14 +35,17 @@ bool extension_is_valid(char * extension)
 {
     char *whitelist[]={".(c|cpp)$",".php$",".cs$",".(jad|java|class)$",".rb$",".(js|html)$",".(asp|aspx)$"};
     short sizelist=0;
-    size_t size_extension=strlen(extension);	
+    size_t size_extension=0;	
+
+	if(extension==NULL)
+		return false;
 
 	while(sizelist!=9)
 	{
-		if(extension!=NULL)
-			if(strlen(extension)>2)
-				if(strncmp(extension,whitelist[sizelist],size_extension))
-					return true;
+			size_extension=strlen(whitelist[sizelist]);
+
+			if(strncmp(extension,whitelist[sizelist],size_extension))
+				return true;
 		sizelist++;
 	}
 
@@ -50,14 +58,18 @@ bool module_is_valid(char * module)
 {
     char *whitelist[]={"eggs/c_common_failures.egg","eggs/php_common_fail.egg","eggs/csharp_common_fails.egg","eggs/java_common_fail.egg","eggs/ruby_common_fail.egg","eggs/javascript_common_fail.egg","eggs/asp_common_fails.egg"};
     short sizelist=0;
-    size_t sizemodule=strlen(module);
+    size_t sizemodule=0;
+
+	if(module==NULL)
+		return false;
 
 	while(sizelist!=9)
 	{
-		if(module!=NULL)
-			if(strlen(module)>5)
-				if(strnstr(module,whitelist[sizelist],sizemodule))
-					return true;
+		sizemodule=strlen(whitelist[sizelist]);	
+
+			if(strnstr(module,whitelist[sizelist],sizemodule))
+				return true;
+
 		sizelist++;
 	}
 
@@ -68,6 +80,9 @@ bool module_is_valid(char * module)
 
 bool url_viewcode_valid(char* test)
 {
+
+	if(test==NULL)
+		return false;
 
  char *p;
  short match_rank=0,counter=0;

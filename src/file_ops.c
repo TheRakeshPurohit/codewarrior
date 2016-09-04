@@ -135,7 +135,7 @@ void *Search_for(char * NameFile,char *regex)
 			linescount=xrealloc(linescount,CounterSize);
 			snprintf(counter,8,"%ld,",count); // add number of lines in URL by param example: 1,21,11,56..
 			strlcat(linescount,counter,CounterSize);
-			memset(counter,0,8);
+			memset(counter,0,7);
 		}
 		LineSize=0;
 		CounterSize=0;	
@@ -300,7 +300,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 void warrior_start (const char * dir_name, char * extension, char * config,  struct mg_connection *c)
 {
 	DIR * d;
-	char tmp_path[512];	
+	char tmp_path[2048];	
 	short counter=0;
 
  	d = opendir (dir_name);
@@ -327,9 +327,9 @@ void warrior_start (const char * dir_name, char * extension, char * config,  str
 
 	
 // TODO* i need improve that extension check
-		if(strcmp(d_name,".") && strcmp(d_name,"..") && match_test(d_name,extension)==true)
+		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,extension)==true)
 		{
-			snprintf(tmp_path,512,"%s/%s",dir_name,d_name);
+			snprintf(tmp_path,2048,"%s/%s",dir_name,d_name);
 			bool result=fly_to_analyse(tmp_path, config, extension, c);
 
 			if(result!=false )
@@ -350,30 +350,23 @@ void warrior_start (const char * dir_name, char * extension, char * config,  str
 		{
 
             
-	            if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) 
+	            if (strncmp (d_name, "..",2) > 0 || d_name[0]!='.') 
 		    {
-	  		int path_length;
-			char path[1024];
+			char path[2048];
  
-			path_length = snprintf (path, 1024, "%s/%s", dir_name, d_name);
-
-
-     	                if (path_length >= 1023) 
-			{
-               		     DEBUG("Path length has got too long.\n");
-               		     exit(0);
-               		}
+			snprintf (path, 2048, "%s/%s", dir_name, d_name);
 
                 	warrior_start (path,extension,config,c);
-	         }
+	            }
+		}
 	}
-    }
+    
 
-    if(closedir(d)) 
-    {
-       	perror("Could not close\n");
-       	exit(0);
-    }
+    	if(closedir(d)) 
+    	{
+       		perror("Could not close\n");
+       		exit(0);
+    	}
 
     
 }
@@ -535,7 +528,7 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 
 	
 // TODO* i need improve that extension check
-		if(strcmp(d_name,".") && strcmp(d_name,"..") && match_test(d_name,extension)==true)
+		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,extension)==true)
 		{
 			snprintf(tmp_path,2048,"%s/%s",dir_name,d_name);
 			char **argv=(char **)Search_for(tmp_path,sink);
@@ -543,12 +536,14 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 
 			if(result[0]!=NULL)
 			{
-				int sizereport=strlen(result[0])+strlen(result[1])+2048+strlen(sink)+strlen(tmp_path);
-				char *report=xmalloc(sizereport);
-				memset(report,0,sizereport-1);		
+				int sizereport=strlen(result[0])+(strlen(result[1])*2);
 				char *path_clean=html_entities(tmp_path);		
 				char *sink_clean=html_entities(sink);
+				sizereport+=strlen(sink_clean)+(strlen(path_clean)*2)+(strlen(language)*2)+462;	
+				char *report=xmalloc(sizereport);
+				memset(report,0,sizereport-1);		
 
+	
 				snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Sink:</b> %s<br> <b>Lines:</b> %s<br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br></div><pre type=\"syntaxhighlighter\" class=\"brush: %s;\" >%s</pre><br>",sink_clean,result[1],path_clean,language,result[1],path_clean,language,result[0]);
 // send result to web socket
 				mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, report, strlen(report));
@@ -570,19 +565,11 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 		{
 
             
-	            if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) 
+	            if (strncmp (d_name, "..",2)>0 && d_name[0]!= '.') 
 		    {
-	  		int path_length;
 			char path[2048];
  
-			path_length = snprintf (path, 2048, "%s/%s", dir_name, d_name);
-
-
-     	                if (path_length >= 2047) 
-			{
-               		     DEBUG("Path length has got too long.\n");
-               		     exit(0);
-               		}
+			snprintf (path, 2048, "%s/%s", dir_name, d_name);
 
                 	warrior_sink (path,extension,sink,c);
 	         }
@@ -615,7 +602,7 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 void warrior_tree (const char * dir_name, char * extension,  struct mg_connection *c)
 {
 	DIR * d;
-	char tmp_path[1024];	
+	char tmp_path[2048];	
 	char *language=get_extension(extension);
 
 //debug printf("%s\n",dir_name);
@@ -644,16 +631,16 @@ void warrior_tree (const char * dir_name, char * extension,  struct mg_connectio
 
 	
 // TODO* i need improve that extension check
-		if(strcmp(d_name,".") && strcmp(d_name,"..") && match_test(d_name,extension)==true)
+		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,extension)==true)
 		{
-			snprintf(tmp_path,1024,"%s/%s",dir_name,d_name);
-			char tree_element[2048];			
-			memset(tree_element,0,2047);
+			snprintf(tmp_path,2048,"%s/%s",dir_name,d_name);
+			char tree_element[4304];			
+			memset(tree_element,0,4303);
 			char *path_clean=html_entities(tmp_path);
 
 
-			snprintf(tree_element,2048,"<div class=\"path well\"><b>Path:</b> <a class=\"fancybox fancybox.iframe\"  href=\"viewcode.html?path=%s&lang=%s&lines=1\">%s</a><br></div>",path_clean,language,path_clean);
-			mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, tree_element, 2048);
+			snprintf(tree_element,4303,"<div class=\"path well\"><b>Path:</b> <a class=\"fancybox fancybox.iframe\"  href=\"viewcode.html?path=%s&lang=%s&lines=1\">%s</a><br></div>",path_clean,language,path_clean);
+			mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, tree_element, 4304);
 			XFREE( path_clean);
 		}
 
@@ -662,19 +649,11 @@ void warrior_tree (const char * dir_name, char * extension,  struct mg_connectio
 		{
 
             
-	            if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) 
+	            if (strncmp (d_name, "..",2)>0 && d_name[0]!='.') 
 		    {
-	  		int path_length;
-			char path[1024];
+			char path[2048];
  
-			path_length = snprintf (path, 1024, "%s/%s", dir_name, d_name);
-
-
-     	                if (path_length >= 1023) 
-			{
-               		     DEBUG("Path length has got too long.\n");
-               		     exit(0);
-               		}
+			snprintf (path, 2048, "%s/%s", dir_name, d_name);
 
                 	warrior_tree (path,extension,c);
 	         }
