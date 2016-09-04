@@ -41,14 +41,14 @@ static void broadcast(struct mg_connection *nc, const struct mg_str msg)
   size_t sizeaction=0;
   struct mg_connection *c;
   short form1=1,form2=1,form3=1,form4=1,form5=1,form6=1,counter_json=0;
-  char buf[8048],total_str[128];
+  char buf[18048],total_str[128];
   char *action,*egg,*path,*extension,*sink,*text_module,*csrf_token;
 
-	memset(buf,0,8047);
+	memset(buf,0,18047);
 	memset(total_str,0,63);
 
 //limit buffer, if not limit causes stack overflow...
-	if(msg.len>=8048)
+	if(msg.len>=18048)
 		return;
 
 	if( msg.p )
