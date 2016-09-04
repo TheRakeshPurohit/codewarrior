@@ -350,7 +350,7 @@ void warrior_start (const char * dir_name, char * extension, char * config,  str
 		{
 
             
-	            if (strncmp (d_name, "..",2) > 0 || d_name[0]!='.') 
+	            if (strncmp (d_name, "..",2) > 0 && d_name[0]!='.') 
 		    {
 			char path[2048];
  
