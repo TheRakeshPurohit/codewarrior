@@ -49,5 +49,6 @@ Open browser at *https://localhost:1345/index.html*
 >* Machine learning so try use bag of Words with KNN
 
 # Author: CoolerVoid
+# Template by Pr0teus https://github.com/Pr0teus
 # contact:coolerlair@gmail.com
 
