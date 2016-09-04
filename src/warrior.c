@@ -5,14 +5,14 @@
 #include <sys/resource.h>
 #include <stdbool.h>
 #include "string_ops.h"
-#include "file_ops.h"   // recursive directory actions
+#include "file_ops.h"   // recursive directory walk
 #include "validate.h"   // to validate inputs
 #include "html_entities.h" // o make XSS mitigation
 #include "mem_ops.h" // xmalloc() ,XFREE()...
-#include "../lib/BSD/strsec.h" // strlcpy(), strlcat() and strnstr()
+#include "../lib/BSD/strsec.h" // OPENBSD's strlcpy(), strlcat() and strnstr() from FreeBSD
 #include "../lib/frozen/frozen.h" // json parser
 #include "../lib/libmongoose/mongoose.h" // HTTPd lib + krypton
-#include "token_anti_csrf.h" // to generate token to CSRF mitigation
+#include "token_anti_csrf.h" // to generate simple token to CSRF mitigation
 #include "whitelist.h" // list os whitelist to access this server, file  "conf/whitelist.conf"
 
 static sig_atomic_t s_signal_received = 0;
@@ -47,8 +47,8 @@ static void broadcast(struct mg_connection *nc, const struct mg_str msg)
 	memset(buf,0,8047);
 	memset(total_str,0,63);
 
-//limit buffer, if not limit causes overflow...
-	if(msg.len>=8047)
+//limit buffer, if not limit causes stack overflow...
+	if(msg.len>=8048)
 		return;
 
 	if( msg.p )
@@ -160,7 +160,7 @@ static void broadcast(struct mg_connection *nc, const struct mg_str msg)
 
 					warrior_tree(path, extension, c);
 
-					mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "End results of tree...", 14);
+					mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "End results of tree...", 22);
 
 					XFREE(path);
 					XFREE(extension);
@@ -183,8 +183,6 @@ static void broadcast(struct mg_connection *nc, const struct mg_str msg)
 					size_t size_form=strlen(content)+150+strlen(token); 
 					char *form_edit=xmalloc(size_form);
 					
-	//				memset(form_edit,0,size_form-1);
-	//				form_edit[size_form]='\0';
 
 					snprintf(form_edit,size_form,"<input type=\"hidden\" id=\"csrf_token\" value=\"%s\"><br><textarea id=\"text_module\" rows=\"30\" cols=\"140\" >%s</textarea><br><button id=\"save\">save</button><br>", token, content);		
 
@@ -323,7 +321,7 @@ int main()
   	s_http_server_opts.dav_document_root = "web/";  // Allow access via WebDav
   	s_http_server_opts.enable_directory_listing = "no";
 
-  	fprintf(stdout,"Code Warrior server started on port %s\n", port);
+  	fprintf(stdout,"Code Warrior version 0.1\nserver started at port %s\nOpen your browser in https://127.0.0.1:%s\n", port,port);
 
   		while (s_signal_received == 0) 
   			mg_mgr_poll(&mgr, 2000);

@@ -75,7 +75,7 @@ char *ReadLines(char * NameFile)
     		size_t s = ftell(fh);
     		rewind(fh);
 
-    		if ( buffer != NULL && s < MAX_file_len )
+    		if ( s < MAX_file_len )
     		{
       			if(!fread(buffer, s, 1, fh))
 				DEBUG("error \n");
@@ -242,7 +242,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 
 // construct the report 
 						int sizereport=strlen(title_clean)+strlen(result2[1])+strlen(description_clean)+strlen(relevance_clean);
-						sizereport+=(strlen(reference_clean)*2)+strlen(match_clean)+strlen(result2[0])+(strlen(path_clean)*2)+strlen(config)+(strlen(language)*2)+487;
+						sizereport+=(strlen(reference_clean)*2)+strlen(match_clean)+strlen(result2[0])+(strlen(path_clean)*2)+strlen(config)+(strlen(language)*2)+473;
 						sizereport+=strlen(icon_alert);
 						report=xmalloc(sizereport*sizeof(char));
 						memset(report,0,sizereport-1);
@@ -455,7 +455,7 @@ void view_source(struct mg_connection *c, char *pathdirt)
     		long s = ftell(fh);
     		rewind(fh);
 
-    		if ( buffer != NULL && s < MAX_file_len )
+    		if ( s < MAX_file_len )
     		{
       			if(!fread(buffer, s, 1, fh))
 				perror("error \n");
