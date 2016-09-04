@@ -185,6 +185,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 	char *p=ReadLines(config);
 	char *last=p,*report=NULL;
 	char title[128],description[512],reference[512],match[1024],relevance[512];	
+	char title2[128],description2[512],reference2[512],match2[1024],relevance2[512];	
 		
 	while(!result && strlen(last)>16)
 	{
@@ -192,41 +193,41 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 		{
 			case TITLE:
 					sz = p - last;
-					memset(title,0,127);
-					snprintf(title,128,"%.*s", sz, last);
-					strlcpy(title,ClearStr(title,10),sizeof(title));
+					memset(title2,0,127);
+					snprintf(title2,128,"%.*s", sz, last);
+					strlcpy(title,ClearStr(title2,10),sizeof(title));
 				break;
 
 			case DESCRIPTION:
 				
  					sz = p - last;
-					memset(description,0,511);
-					snprintf(description,512,"%.*s", sz, last);
-					strlcpy(description,ClearStr(description,16),sizeof(description));
+					memset(description2,0,511);
+					snprintf(description2,512,"%.*s", sz, last);
+					strlcpy(description,ClearStr(description2,16),sizeof(description));
 				break;
 
 			case REFERENCE:
 
 					sz = p - last - 1;
-					memset(reference,0,511);
-					snprintf(reference,512,"%.*s", sz, last);
-					strlcpy(reference,ClearStr(reference,14),sizeof(reference));
+					memset(reference2,0,511);
+					snprintf(reference2,512,"%.*s", sz, last);
+					strlcpy(reference,ClearStr(reference2,14),sizeof(reference));
 				break;
 
 
 			case RELEVANCE:
 
 					sz = p - last;
-					memset(relevance,0,511);
-					snprintf(relevance,512,"%.*s", sz, last);
-					strlcpy(relevance,ClearStr(relevance,14),sizeof(relevance));
+					memset(relevance2,0,511);
+					snprintf(relevance2,512,"%.*s", sz, last);
+					strlcpy(relevance,ClearStr(relevance2,14),sizeof(relevance));
 				break;
 
 			case MATCH:
 					sz = p - last;
-					memset(match,0,1023);
-					snprintf(match,1024,"%.*s", sz, last);
-					strlcpy(match,ClearStr(match,10),sizeof(match));
+					memset(match2,0,1023);
+					snprintf(match2,1024,"%.*s", sz, last);
+					strlcpy(match,ClearStr(match2,10),sizeof(match));
 
 					char **arg=(char **)Search_for(path,match);
 					char **result2=arg;
