@@ -338,7 +338,7 @@ void warrior_start (const char * dir_name, char * extension, char * config,  str
 				counter++;
 				memset(tmp_path,0,511);
 				if(counter==20)
-					sleep(15000),counter=0;
+					sleep(1),counter=0;
 			}
 
 			
