@@ -2,7 +2,7 @@
 #include "../lib/sha256/sha256.h"
 #include "mem_ops.h"
 #include "../lib/BSD/strsec.h"
-
+// this version uses timeout, at EULA version have session ;-]
 
 char * make_hash(unsigned char hash[])
 {
