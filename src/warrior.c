@@ -311,11 +311,11 @@ int main()
  * */ 
   	const char *err_str = mg_set_ssl(nc, "cert/certkey.pem", NULL);
 
-    		if (err_str != NULL) 
-		{
-      			fprintf(stderr, "Error loading SSL cert: %s\n", err_str);
-      			exit(1);
-    		}
+    		//if (err_str != NULL) 
+		//{
+      			//fprintf(stderr, "Error loading SSL cert: %s\n", err_str);
+      			//exit(1);
+    		//}
 
   	s_http_server_opts.document_root = "web/";
   	s_http_server_opts.dav_document_root = "web/";  // Allow access via WebDav
