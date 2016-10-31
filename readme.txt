@@ -17,7 +17,7 @@ $ cd cert; openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout p
 $ cat certificate.crt privateKey.key > certkey.pem 
 $ cd ..
 $ /bin/warrior 
-Open browser at https://localhost:1345/index.html
+Open browser at https://127.0.0.1:1345/index.html  (put IP not "localhost", chrome have bug)
 
 Notes:
 * if screen stock you reflesh browser with F5...
