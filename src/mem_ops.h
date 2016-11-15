@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <time.h>
+#include <stdint.h>
 #define XFREE(x) xfree((void **)&x); 
-
+#define MUL_NO_OVERFLOW	((size_t)1 << (sizeof(size_t)*4))
 // set DEBUG ON
 #define BUGVIEW 1
 #define DEBUG(x, s...) do { \
@@ -20,6 +21,9 @@
 } while (0);
  
 
+// based in OpenBSD reallocarray() function http://man.openbsd.org/reallocarray.3
+void *xmallocarray (size_t nmemb, size_t size); 
+void *xreallocarray (void *ptr, size_t nmemb, size_t size);
 void *xmalloc (size_t size);
 void *xcalloc (size_t mem, size_t size);
 void *xrealloc (void *ptr, size_t size);

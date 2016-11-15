@@ -27,7 +27,7 @@ char *file_content(const char * filename)
 
     	file_size = pos;
     	rewind(fp);
-    	file_contents = xmalloc(sizeof(char) * (file_size + 1));
+    	file_contents = xmallocarray((file_size + 1),sizeof(char));
 
     	if (!file_contents) 
 	{
@@ -128,11 +128,11 @@ void *Search_for(char * NameFile,char *regex)
 		{
 			
 		 	LineSize+=3128+512;
-			lineBuffer=xrealloc(lineBuffer,LineSize);
+			lineBuffer=xreallocarray(lineBuffer,LineSize,sizeof(char));
 			snprintf(tmpline,3128,"Line: %ld -  %s",count,line);
 			strlcat(lineBuffer,tmpline,LineSize);
 			CounterSize+=strlen(linescount)+9;
-			linescount=xrealloc(linescount,CounterSize);
+			linescount=xreallocarray(linescount,CounterSize,sizeof(char));
 			snprintf(counter,8,"%ld,",count); // add number of lines in URL by param example: 1,21,11,56..
 			strlcat(linescount,counter,CounterSize);
 			memset(counter,0,7);
@@ -245,7 +245,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 						int sizereport=strlen(title_clean)+strlen(result2[1])+strlen(description_clean)+strlen(relevance_clean);
 						sizereport+=(strlen(reference_clean)*2)+strlen(match_clean)+strlen(result2[0])+(strlen(path_clean)*2)+strlen(config)+(strlen(language)*2)+473;
 						sizereport+=strlen(icon_alert);
-						report=xmalloc(sizereport*sizeof(char));
+						report=xmallocarray(sizereport,sizeof(char));
 						memset(report,0,sizereport-1);
 						snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Title:</b> %s<br> <b>Description:</b> %s<br> <b>Relevance:</b> %s<br> <b>Reference:</b> <a class=\"fancybox fancybox.iframe\" href=\"%s\">%s</a><br><b>Match:</b> %s <br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br><b>Module:</b> %s <img src=\"img/%s\" width=\"80\" height=\"60\" align=\"right\" ></div><pre type=\"syntaxhighlighter\" class=\"brush: %s;\" >%s</pre><br>",title_clean,description_clean,relevance_clean,reference_clean,reference_clean,match_clean,path_clean,language,result2[1],path_clean,config,icon_alert,language,result2[0]);
 
@@ -254,15 +254,15 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 // send result to web socket
 						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, report, sizereport);
 						
-						XFREE( result2[0]);
-						XFREE( result2[1]);
-						XFREE( icon_alert);
-						XFREE( title_clean);
-						XFREE( description_clean);
-						XFREE( relevance_clean);
-						XFREE( reference_clean);
-						XFREE( match_clean);
-						XFREE( path_clean);
+						XFREE(result2[0]);
+						XFREE(result2[1]);
+						XFREE(icon_alert);
+						XFREE(title_clean);
+						XFREE(description_clean);
+						XFREE(relevance_clean);
+						XFREE(reference_clean);
+						XFREE(match_clean);
+						XFREE(path_clean);
 						XFREE(report);
 
 						report_status=true;
@@ -281,7 +281,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 	if(strlen(last)>16)
 		XFREE( last);
 
-	XFREE( language);
+	XFREE(language);
 	XFREE(title);
 	XFREE(description);
 	XFREE(reference);
@@ -337,6 +337,7 @@ void warrior_start (const char * dir_name, char * extension, char * config,  str
 // TODO: limit this
 				counter++;
 				memset(tmp_path,0,511);
+
 				if(counter==20)
 					sleep(1),counter=0;
 			}

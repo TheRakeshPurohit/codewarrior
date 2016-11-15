@@ -181,7 +181,7 @@ static void broadcast(struct mg_connection *nc, const struct mg_str msg)
 // anti-xss 
 					char *content=html_entities2(module_content); // but this version allow reverse slash to use in regex
 					size_t size_form=strlen(content)+150+strlen(token); 
-					char *form_edit=xmalloc(size_form);
+					char *form_edit=xmallocarray(size_form,sizeof(char));
 					
 
 					snprintf(form_edit,size_form,"<input type=\"hidden\" id=\"csrf_token\" value=\"%s\"><br><textarea id=\"text_module\" rows=\"30\" cols=\"140\" >%s</textarea><br><button id=\"save\">save</button><br>", token, content);		
@@ -311,11 +311,8 @@ int main()
  * */ 
   	const char *err_str = mg_set_ssl(nc, "cert/certkey.pem", NULL);
 
-    		//if (err_str != NULL) 
-		//{
-      			//fprintf(stderr, "Error loading SSL cert: %s\n", err_str);
-      			//exit(1);
-    		//}
+    		if (err_str != NULL) 
+			DEBUG("Problem at certificate %s",err_str); // TODO fix it
 
   	s_http_server_opts.document_root = "web/";
   	s_http_server_opts.dav_document_root = "web/";  // Allow access via WebDav

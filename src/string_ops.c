@@ -908,7 +908,7 @@ int URLdecode(const char *s, char *dec)
 char *replace(const char *in, const char *pattern, const char *by)
 {
     size_t outsize = strlen(in) + 1;
-    char *res = xmalloc(outsize);
+    char *res = xmallocarray(outsize,sizeof(char));
     size_t resoffset = 0;
     char *needle;
 
@@ -918,7 +918,7 @@ char *replace(const char *in, const char *pattern, const char *by)
         resoffset += needle - in;
         in = needle + strlen(pattern);
         outsize = outsize - strlen(pattern) + strlen(by);
-        res = xrealloc(res, outsize);
+        res = xreallocarray(res, outsize,sizeof(char));
         memcpy(res + resoffset, by, strlen(by));
         resoffset += strlen(by);
     }
