@@ -28,16 +28,19 @@ Don't need install, just compile and run, don't have external libs... runs at *L
 >* $ cd ..
 >* $ /bin/warrior 
 
-Open browser at *https://localhost:1345/index.html*
+Open browser at *https://127.0.0.1:1345/index.html*   (dont write localhost use 127.0.0.1)
 
 #Notes:
 >* if screen stock you reflesh browser with F5...
 >* If return error, port already in use... close it with...
 >* $ fuser -k -n tcp 1345
 >* If you want use at network, Whitelist to access server you can edit at "config/whitelist.conf". 
+>* Use chrome browser to run.
+>* Use 127.0.0.1 addr dont use localhost name.
 
 #Tested at path:  
 *https://github.com/joostvanveen/php-security-pitfalls*
+
 
 #Tricks:
 >* if you want change cert "cert/certpem.pem" generate with openssl cartificate and key and concatenate both...
