@@ -1,7 +1,6 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
-#include <signal.h>
 #include <sys/resource.h>
 #include <stdbool.h>
 #include "string_ops.h"
@@ -15,20 +14,15 @@
 #include "token_anti_csrf.h" // to generate simple token to CSRF mitigation
 #include "whitelist.h" // list os whitelist to access this server, file  "conf/whitelist.conf"
 
-static sig_atomic_t s_signal_received = 0;
 static struct mg_serve_http_opts s_http_server_opts;
-
-static void signal_handler(int sig_num) 
-{
-  signal(sig_num, signal_handler);  
-  s_signal_received = sig_num;
-}
+static const char *s_ssl_cert = "cert/certkey.pem";
+static const char *s_ssl_key = "cert/certkey.key";
+static const char *port = "1345";
 
 static int is_websocket(const struct mg_connection *nc) 
 {
   return nc->flags & MG_F_IS_WEBSOCKET;
 }
-
 
 /*
  So this function get msgs from web socket and parse JSON, at end choice a function to execute...
@@ -246,7 +240,6 @@ static void broadcast(struct mg_connection *nc, const struct mg_str msg)
 
 static void ev_handler(struct mg_connection *nc, int ev, void *ev_data) 
 {
-
 	switch (ev) 
 	{	
 		case MG_EV_HTTP_REQUEST: {
@@ -289,39 +282,43 @@ static void ev_handler(struct mg_connection *nc, int ev, void *ev_data)
 	
 int main()
 {
-	char port[]="1345";
 	struct mg_mgr mgr;
 	struct mg_connection *nc;
+  	struct mg_bind_opts bind_opts;
+  	const char *err;
 
-// global salt generator
+// global salt generator, for anti-csrf token
 	memset(salt,0,15);
 	rand_str(salt,15);
 
-	signal(SIGTERM, signal_handler);
-	signal(SIGINT, signal_handler);
-	setvbuf(stdout, NULL, _IOLBF, 0);
-	setvbuf(stderr, NULL, _IOLBF, 0);
+ 	mg_mgr_init(&mgr, NULL);
+	memset(&bind_opts, 0, sizeof(bind_opts));
+  	bind_opts.ssl_cert = s_ssl_cert;
+  	bind_opts.ssl_key = s_ssl_key;
+  	bind_opts.error_string = &err;
 
-	mg_mgr_init(&mgr, NULL);
+  	printf("Starting SSL server on port %s, cert from %s, key from %s\n",
+         port, bind_opts.ssl_cert, bind_opts.ssl_key);
+  	nc = mg_bind_opt(&mgr, port, ev_handler, bind_opts);
 
-	nc = mg_bind(&mgr, port, ev_handler);
+  	if (nc == NULL) 
+	{
+    		DEBUG("Failed to create listener: %s\n", err);
+    		return 1;
+  	}
+
 	mg_set_protocol_http_websocket(nc);
-/* if run with TLS... 
- * cert+pem both in pem file
- * */ 
-  	const char *err_str = mg_set_ssl(nc, "cert/certkey.pem", NULL);
-
-    		if (err_str != NULL) 
-			DEBUG("Problem at certificate %s",err_str); // TODO fix it
 
   	s_http_server_opts.document_root = "web/";
   	s_http_server_opts.dav_document_root = "web/";  // Allow access via WebDav
   	s_http_server_opts.enable_directory_listing = "no";
 
-  	fprintf(stdout,"Code Warrior version 0.1\nserver started at port %s\nOpen your browser in https://127.0.0.1:%s\n", port,port);
+  	fprintf(stdout,"Code Warrior version 0.2\nserver started at port %s\nOpen your browser in https://127.0.0.1:%s\n", port,port);
 
-  		while (s_signal_received == 0) 
-  			mg_mgr_poll(&mgr, 2000);
+
+  	for (;;) 
+    		mg_mgr_poll(&mgr, 1000);
+  	
   
   	mg_mgr_free(&mgr);
 
