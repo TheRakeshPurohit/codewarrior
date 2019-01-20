@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra  
-DFLAGS=-g -DMG_ENABLE_SSL -DMG_DISABLE_PFS lib/slre/slre.c lib/libmongoose/mongoose.c lib/sha256/sha256.c lib/BSD/strsec.c lib/frozen/frozen.c 
+DFLAGS=-DMG_ENABLE_SSL -DMG_DISABLE_PFS lib/slre/slre.c lib/libmongoose/mongoose.c lib/sha256/sha256.c lib/BSD/strsec.c lib/frozen/frozen.c 
 DIR=src/
 DIROUT=bin/
 UNAME_S := $(shell uname -s)
@@ -8,7 +8,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-lpthread -lssl -lcrypto 
 else
-	LDFLAGS=-lpthread -lcrypto -lssl -g 
+	LDFLAGS=-lpthread -lcrypto -lssl 
 endif
 
 warrior: $(DIR)warrior.c 
