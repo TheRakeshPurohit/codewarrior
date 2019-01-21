@@ -5,13 +5,9 @@ DIR=src/
 DIROUT=bin/
 UNAME_S := $(shell uname -s)
 # todo: hardening that makefile
-ifeq ($(UNAME_S),Darwin)
-	LDFLAGS=-lpthread -lssl -lcrypto 
-else
-	LDFLAGS=-lpthread -lcrypto -lssl 
-endif
+LDFLAGS=-lpthread -lcrypto -lssl 
 
-warrior: $(DIR)warrior.c 
+warrior: $(DIR)main.c 
 	@echo "Compile... "
 	$(CC) $(CFLAGS) $(DFLAGS) -c $(DIR)*.c 
 	$(CC) -o $(DIROUT)warrior *.o $(LDFLAGS)
