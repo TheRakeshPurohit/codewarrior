@@ -18,15 +18,23 @@ Video demo: https://youtu.be/tZkllJ9mieU
 
 > doc/ = at construction...
 
+> lib/ = External libraries
 
-Don't need install, just compile and run, don't have external libs... runs at *Linux,* *BSD* and *MacOS.*
+> cert/ = loads your certificates for TLS here
+
+Don't need install, just compile and run... runs at *Linux,* *BSD* and *MacOS.*
+need to install openssl-dev or openssl-devel package because need OpenSSL lib.
 
 >* git clone ttps://github.com/CoolerVoid/codewarrior/; cd codewarrior
 >* $ make
->* $ cd cert; openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout privateKey.key -out certificate.crt
+
+Example if you need create your cert...
+>* $ cd cert; openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout certkey.key -out certificate.crt
 >* $ cat certificate.crt privateKey.key > certkey.pem 
 >* $ cd ..
->* $ /bin/warrior 
+
+Execute don't do "cd bin; ./warrior", follow example:
+>* $ bin/warrior 
 
 Open browser at *https://127.0.0.1:1345/index.html*   (dont write localhost use 127.0.0.1)
 
