@@ -30,7 +30,7 @@ need to install openssl-dev or openssl-devel package because need OpenSSL lib.
 
 Example if you need create your cert...
 >* $ cd cert; openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout certkey.key -out certificate.crt
->* $ cat certificate.crt privateKey.key > certkey.pem 
+>* $ cat certificate.crt certkey.key > certkey.pem 
 >* $ cd ..
 
 Execute don't do "cd bin; ./warrior", follow example:
