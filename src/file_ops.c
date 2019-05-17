@@ -106,10 +106,10 @@ void *Search_for(char * NameFile,char *regex)
 	size_t LineSize=0,CounterSize;
 	char *lineBuffer=xcalloc(1,1);
  	char *linescount=xcalloc(1,1);
-	char tmpline[3128],counter[8],line[3127];
+	char tmpline[3528],counter[8],line[3127];
 	FILE * arq;
 
-	memset(tmpline,0,3127);
+	memset(tmpline,0,3527);
 
 	arq = fopen(NameFile, "r");
 
@@ -129,7 +129,7 @@ void *Search_for(char * NameFile,char *regex)
 			
 		 	LineSize+=3128+512;
 			lineBuffer=xreallocarray(lineBuffer,LineSize,sizeof(char));
-			snprintf(tmpline,3128,"Line: %ld -  %s",count,line);
+			snprintf(tmpline,3528,"Line: %ld -  %s",count,line);
 			strlcat(lineBuffer,tmpline,LineSize);
 			CounterSize+=strlen(linescount)+9;
 			linescount=xreallocarray(linescount,CounterSize,sizeof(char));
