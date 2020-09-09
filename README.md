@@ -25,7 +25,7 @@ Video demo: https://youtu.be/tZkllJ9mieU
 Don't need install, just compile and run... runs at *Linux,* *BSD* and *MacOS.*
 need to install openssl-dev or openssl-devel package because need OpenSSL lib.
 
->* git clone ttps://github.com/CoolerVoid/codewarrior/; cd codewarrior
+>* git clone https://github.com/CoolerVoid/codewarrior/; cd codewarrior
 >* $ make
 
 Example if you need create your cert...
