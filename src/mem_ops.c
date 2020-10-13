@@ -6,7 +6,7 @@ void *xmallocarray (size_t nmemb, size_t size)
 	if ((nmemb >= MUL_NO_OVERFLOW || size >= MUL_NO_OVERFLOW) && nmemb > 0 && SIZE_MAX / nmemb < size) 
 	{
 		DEBUG("integer overflow block");
-		return NULL;
+		exit(0);
 	}
 
 	void *ptr = malloc (nmemb*size);
@@ -14,7 +14,7 @@ void *xmallocarray (size_t nmemb, size_t size)
 	if (ptr == NULL) 
 	{
 		DEBUG("Error in memory size: %lu",size);
-		exit(1);
+		exit(0);
 	}
 	return ptr;
 }
@@ -25,7 +25,7 @@ void *xreallocarray (void *ptr, size_t nmemb, size_t size)
 	if ((nmemb >= MUL_NO_OVERFLOW || size >= MUL_NO_OVERFLOW) && nmemb > 0 && SIZE_MAX / nmemb < size) 
 	{
 		DEBUG("integer overflow block");
-		return NULL;
+		exit(0);
 	}
 
 	void *p = realloc (ptr, nmemb*size);
@@ -34,7 +34,7 @@ void *xreallocarray (void *ptr, size_t nmemb, size_t size)
 	{
 		
 		DEBUG("Error in memory size: %lu",size);
-		exit(1);
+		exit(0);
 	}
 	
 	return p;
@@ -44,7 +44,7 @@ void *xreallocarray (void *ptr, size_t nmemb, size_t size)
 static void *xmalloc_fatal(size_t size) 
 {
 	DEBUG("Error in memory size: %lu",size);
-	exit(1);
+	exit(0);
 }
 
 void *xmalloc (size_t size) 
