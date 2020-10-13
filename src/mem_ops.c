@@ -12,8 +12,10 @@ void *xmallocarray (size_t nmemb, size_t size)
 	void *ptr = malloc (nmemb*size);
 
 	if (ptr == NULL) 
-		return NULL;
-
+	{
+		DEBUG("Error in memory size: %lu",size);
+		exit(1);
+	}
 	return ptr;
 }
 
@@ -29,19 +31,19 @@ void *xreallocarray (void *ptr, size_t nmemb, size_t size)
 	void *p = realloc (ptr, nmemb*size);
 
 	if (p == NULL) 
-		return NULL;
-
+	{
+		
+		DEBUG("Error in memory size: %lu",size);
+		exit(1);
+	}
+	
 	return p;
 }
 
 
 static void *xmalloc_fatal(size_t size) 
 {
-	if ( size == 0 ) 
-		return NULL;
-
-	DEBUG("\n Memory FAILURE...\n");
-
+	DEBUG("Error in memory size: %lu",size);
 	exit(1);
 }
 
