@@ -1,6 +1,5 @@
 #include "string_ops.h"
 #include "mem_ops.h"
-#include "../lib/BSD/strsec.h"
 
 #define array_elements(array) (sizeof(array) / sizeof *(array))
 
