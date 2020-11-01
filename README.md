@@ -24,24 +24,31 @@ Video demo: https://youtu.be/tZkllJ9mieU
 
 Don't need install, just compile and run... runs at *Linux,* *BSD* and *MacOS.*
 need to install openssl-dev or openssl-devel package because need OpenSSL lib.
-
->* git clone https://github.com/CoolerVoid/codewarrior/; cd codewarrior
->* $ make
-
+```
+$ git clone https://github.com/CoolerVoid/codewarrior/; cd codewarrior
+$ make
+```
 Example if you need create your cert...
->* $ cd cert; openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout certkey.key -out certificate.crt
->* $ cat certificate.crt certkey.key > certkey.pem 
->* $ cd ..
+```
+$ cd cert; openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout certkey.key -out certificate.crt
+$ cat certificate.crt certkey.key > certkey.pem 
+$ cd ..
+```
 
 Execute don't do "cd bin; ./warrior", follow example:
->* $ bin/warrior 
+```
+$ bin/warrior 
+```
 
 Open browser at *https://127.0.0.1:1345/index.html*   (dont write localhost use 127.0.0.1)
 
 #Notes:
 >* if screen stock you reflesh browser with F5...
->* If return error, port already in use... close it with...
->* $ fuser -k -n tcp 1345
+>* If return error, port already in use... close it with this following:
+``` 
+$ fuser -k -n tcp 1345
+```
+
 >* If you want use at network, Whitelist to access server you can edit at "config/whitelist.conf". 
 >* Use chrome browser to run.
 >* Use 127.0.0.1 addr dont use localhost name.

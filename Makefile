@@ -7,7 +7,13 @@ DIR_HEADERS=src/headers/
 DIROUT=bin/
 UNAME_S := $(shell uname -s)
 # todo: hardening that makefile
-LDFLAGS=-lpthread -lcrypto -lssl 
+
+ifeq ($(UNAME_S),Darwin)
+ LDFLAGS=-lpthread -lcrypto -lssl -lm 
+else
+ LDFLAGS=-Wl,-z,relro,-z,now -lpthread -lm -lcrypto -lssl
+endif
+
 
 warrior: $(DIR)main.c 
 	@echo "Compile... "
