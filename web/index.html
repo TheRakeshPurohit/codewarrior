@@ -51,7 +51,7 @@ function sleepFor( sleepDuration ){
 }
 
 function init(){
-  var ws = new WebSocket('wss://127.0.0.1:1345');
+  var ws = new WebSocket('wss://127.0.0.1:1345/websocket');
   ws.onopen = function(evt) { onload(evt) };
 
   ws.onmessage = function(ev) {	

@@ -33,7 +33,7 @@
   
   var rooms = [];
 
-  var ws3 = new WebSocket('wss://127.0.0.1:1345');
+  var ws3 = new WebSocket('wss://127.0.0.1:1345/websocket');
   ws3.onopen = function(evt) { onload(evt) };
 
   window.onload = function() {

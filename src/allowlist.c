@@ -1,13 +1,13 @@
-#include "whitelist.h"
+#include "allowlist.h"
 #include "string_ops.h"
 
 // test IP using whitelist
-bool whitelist_ip(char * addr)
+bool allowlist_ip(char * addr)
 {
 	FILE * arq;
 	bool at_list=false;
 
-	arq = fopen("config/whitelist.conf", "r");
+	arq = fopen("config/allowlist.conf", "r");
 
 	if( arq == NULL )
 	{
@@ -23,14 +23,14 @@ bool whitelist_ip(char * addr)
 	{
 		line[strlen(line)-1]='\0';
 
-// the whitelist can accept regex: 127.0.0.* ...
+// the allowlist can accept regex: 127.0.0.* ...
 		if(match_test(addr,line)==true)
 			at_list=true;
 	}
 
 	if( fclose(arq) == EOF )
 	{
-		DEBUG("Error in close() conf/whitelist.conf ");
+		DEBUG("Error in close() conf/allowlist.conf ");
 		exit(1);
 	}
 

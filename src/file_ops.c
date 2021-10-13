@@ -252,7 +252,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 
 	
 // send result to web socket
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, report, sizereport);
+						mg_ws_send(c, report, sizereport,WEBSOCKET_OP_TEXT);
 						
 						XFREE(result2[0]);
 						XFREE(result2[1]);
@@ -385,14 +385,14 @@ void view_source(struct mg_connection *c, char *pathdirt)
 	if(pathdirt!=NULL && url_viewcode_valid(pathdirt2)==false)
 	{
 		DEBUG("error %s\n",pathdirt2);
-		mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "invalid path", 12);
+		mg_ws_send(c, "invalid path", 12,WEBSOCKET_OP_TEXT);
 		return;
 			
 	}
 
     	int sz;
     	int result=0;
-	char *p = pathdirt;
+		char *p = pathdirt;
     	char *last = p;
     	char path[3048],lang[32],lines[256];
 
@@ -401,7 +401,7 @@ void view_source(struct mg_connection *c, char *pathdirt)
     	memset(lines,0,255);
 
 // parse the URL and get inputs
-    	while(!result )
+    while(!result )
    	 switch (parse_viewcode(&p, &last)) 
 	 {
        	  case PATH:
@@ -483,7 +483,7 @@ void view_source(struct mg_connection *c, char *pathdirt)
 	snprintf(output,len_output,"<b>Path:</b> %s<br><pre type=\"syntaxhighlighter\" class=\"brush: %s; highlight: [%s];\" >%s</pre>",path_clean,lang_clean,lines_clean,code);
 
 // send source code to viewcode.html
-	mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, output, len_output);
+	mg_ws_send(c,  output, len_output, WEBSOCKET_OP_TEXT);
 
 	XFREE(code);
 	XFREE(lines_clean);
@@ -547,7 +547,7 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 	
 				snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Sink:</b> %s<br> <b>Lines:</b> %s<br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br></div><pre type=\"syntaxhighlighter\" class=\"brush: %s;\" >%s</pre><br>",sink_clean,result[1],path_clean,language,result[1],path_clean,language,result[0]);
 // send result to web socket
-				mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, report, strlen(report));
+				mg_ws_send(c, report, strlen(report), WEBSOCKET_OP_TEXT);
 				memset(tmp_path,0,2047);
 
 				XFREE(report);
@@ -641,12 +641,12 @@ void warrior_tree (const char * dir_name, char * extension,  struct mg_connectio
 
 
 			snprintf(tree_element,4303,"<div class=\"path well\"><b>Path:</b> <a class=\"fancybox fancybox.iframe\"  href=\"viewcode.html?path=%s&lang=%s&lines=1\">%s</a><br></div>",path_clean,language,path_clean);
-			mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, tree_element, 4304);
+			mg_ws_send(c,  tree_element, 4304, WEBSOCKET_OP_TEXT);
 			XFREE( path_clean);
 		}
 
 
-	        if (entry->d_type & DT_DIR) 
+	    if (entry->d_type & DT_DIR) 
 		{
 
             

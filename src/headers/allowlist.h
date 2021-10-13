@@ -4,4 +4,4 @@
 #include "mem_ops.h"
 
 //read lines of file
-bool whitelist_ip(char * addr);
+bool allowlist_ip(char * addr);

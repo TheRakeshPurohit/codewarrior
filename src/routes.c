@@ -1,37 +1,30 @@
 #include "routes.h" // routes to make actions
 
 
-
-int is_websocket(const struct mg_connection *nc) 
-{
-  return nc->flags & MG_F_IS_WEBSOCKET;
-}
-
 /*
  So this function get msgs from web socket and parse JSON, at end choice a function to execute...
 */
-void broadcast(struct mg_connection *nc, const struct mg_str msg) 
+void broadcast(struct mg_connection *c, struct mg_ws_message *msg) 
 {
-	if(msg.p==NULL)
+	if(msg->data.ptr==NULL)
 		return;
 
-  size_t sizeaction=0;
-  struct mg_connection *c;
-  short form1=1,form2=1,form3=1,form4=1,form5=1,form6=1,counter_json=0;
-  char buf[8048],total_str[128];
-  char *action,*egg,*path,*extension,*sink,*text_module,*csrf_token;
+	size_t sizeaction=0;
+  	short form1=1,form2=1,form3=1,form4=1,form5=1,form6=1,counter_json=0;
+  	char buf[8048],total_str[128];
+  	char *action,*egg,*path,*extension,*sink,*text_module,*csrf_token;
 
 	memset(buf,0,8047);
 	memset(total_str,0,63);
 
 //limit buffer, if not limit causes stack overflow...
-	if(msg.len>=8048)
+	if(msg->data.len>=8048)
 		return;
 
-	if( msg.p )
+	if( msg->data.ptr )
 	{
 
-	  	snprintf(buf, sizeof(buf), "%.*s", (int) msg.len, msg.p);
+	  	snprintf(buf, sizeof(buf), "%.*s", (int) msg->data.len, msg->data.ptr);
 
 
 		counter_json=json_scanf(buf, strlen(buf), "{ action:%Q, path:%Q, module:%Q, extension:%Q, sink:%Q, text_module:%Q, csrf_token:%Q }", &action, &path, &egg, &extension, &sink, &text_module, &csrf_token);
@@ -42,29 +35,27 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 			sizeaction=0;
 
 
-  		for ( c = mg_next(nc->mgr, NULL); c != NULL && counter_json>=2; c = mg_next(nc->mgr, c) ) 
-		{
-  			
+
 // this get information from form at index.html, if user click in "start"
 				if(action && strnstr(action,"form1",sizeaction) && form1==1)
   				{
 					if(path==NULL || !path_is_valid(path))
 					{
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in Path", 14);
-						break; 
+						mg_ws_send(c, "Error in Path", 14, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 					if(egg==NULL || !module_is_valid(egg))	
 					{
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in module", 15);
-						break; 
+						mg_ws_send(c, "Error in module", 15, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 
 					if(extension==NULL || !extension_is_valid(extension))	
 					{
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in extension", 18);
-						break; 
+						mg_ws_send(c, "Error in extension", 18, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 					form1=0;
@@ -93,15 +84,15 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 // TODO valid sink var, if have ReDOS
 					if(extension==NULL || !extension_is_valid(extension))	
 					{
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in extension", 18);
-						break; 
+						mg_ws_send(c, "Error in extension", 18,WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 					
 					if(path==NULL || !path_is_valid(path))
 					{	
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in path", 13);
-						break; 
+						mg_ws_send(c, "Error in path", 13, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 					form3=0;
@@ -112,7 +103,7 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 					XFREE(extension);					
 					XFREE(sink);
 					
-					mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "End of sink...", 14);
+					mg_ws_send(c, "End of sink...", 14, WEBSOCKET_OP_TEXT);
 					
 				}
 
@@ -122,22 +113,22 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 
 					if(path==NULL || !path_is_valid(path))
 					{	
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in path", 13);
-						break; 
+						mg_ws_send(c, "Error in path", 13,WEBSOCKET_OP_TEXT);
+						return; 
 					}
 						
 
 					if(extension==NULL || !extension_is_valid(extension))
 					{	
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in extension", 18);
-						break; 
+						mg_ws_send(c, "Error in extension", 18,WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 					form4=0;
 
 					warrior_tree(path, extension, c);
 
-					mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "End results of tree...", 22);
+					mg_ws_send(c, "End results of tree...", 22, WEBSOCKET_OP_TEXT);
 
 					XFREE(path);
 					XFREE(extension);
@@ -149,8 +140,8 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 
 					if(egg==NULL || !module_is_valid(egg) )
 					{	
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in module", 15);
-						break; 
+						mg_ws_send(c, "Error in module", 15, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 // token anti-csrf					
 					char *token=gen_anticsrf_token(0); 
@@ -163,7 +154,7 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 
 					snprintf(form_edit,size_form,"<input type=\"hidden\" id=\"csrf_token\" value=\"%s\"><br><textarea id=\"text_module\" rows=\"30\" cols=\"140\" >%s</textarea><br><button id=\"save\">save</button><br>", token, content);		
 
-					mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, form_edit, size_form);
+					mg_ws_send(c, form_edit, size_form, WEBSOCKET_OP_TEXT);
 
 					form5=0;			
 					
@@ -182,21 +173,21 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 					if(csrf_token==NULL || csrf_token_check(csrf_token)==false )
 					{
 						puts("error in token");
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "token invalid", 13);
-						break; 
+						mg_ws_send(c, "token invalid", 13, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 								
 					if(egg==NULL || !module_is_valid(egg) )
 					{	
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in module", 15);
-						break; 
+						mg_ws_send(c, "Error in module", 15, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 
 					if(text_module==NULL)
 					{	
-						mg_send_websocket_frame(c, WEBSOCKET_OP_TEXT, "Error in text module", 20);
-						break; 
+						mg_ws_send(c,  "Error in text module", 20, WEBSOCKET_OP_TEXT);
+						return; 
 					}
 	
 					char *clean_text=filter_text_form(text_module);
@@ -212,8 +203,7 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 				}
 			
 			XFREE(action);
-  		}
-    	}
+    }
 }
 
 
@@ -221,46 +211,5 @@ void broadcast(struct mg_connection *nc, const struct mg_str msg)
 
 
 
-void ev_handler(struct mg_connection *nc, int ev, void *ev_data) 
-{
-	switch (ev) 
-	{	
-		case MG_EV_HTTP_REQUEST: {
-
-			char addr[64];
-  			mg_sock_addr_to_str(&nc->sa, addr, sizeof(addr), MG_SOCK_STRINGIFY_IP | MG_SOCK_STRINGIFY_PORT);
-
-// only 127.0.0.1 can access, you can edit whitelist at file config/whitelist.conf, you can use regex at list...
-			if(whitelist_ip(addr)==true)
-				mg_serve_http(nc, (struct http_message *)ev_data, s_http_server_opts);
-      			break;
-    		}
-	
-    		case MG_EV_WEBSOCKET_HANDSHAKE_DONE: {
-      			broadcast(nc, mg_mk_str("++ joined"));
-      			break;
-    		}
-
-    		case MG_EV_WEBSOCKET_FRAME: {
-			char addr[32];
-  			mg_sock_addr_to_str(&nc->sa, addr, sizeof(addr), MG_SOCK_STRINGIFY_IP | MG_SOCK_STRINGIFY_PORT);
-
-				if(whitelist_ip(addr)==true)
-				{
-      					struct websocket_message *wm = (struct websocket_message *) ev_data;
-      					struct mg_str d = {(char *) wm->data, wm->size};
-      					broadcast(nc, d);
-				}
-      			break;
-    			}
-	
-    		case MG_EV_CLOSE: {
-      			if (is_websocket(nc)) 
-     				broadcast(nc, mg_mk_str("-- left"));
-     			break;
-	
-    			}
-  	}
-}
 	
 

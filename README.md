@@ -28,12 +28,12 @@ need to install OpenSSL-dev or OpenSSL-devel package because need OpenSSL lib.
 $ git clone https://github.com/CoolerVoid/codewarrior/; cd CodeWarrior
 $ make
 ```
-For example, if you need to create your cert...
+For example, if you need to create your cert and load...
 ```
-$ cd cert; openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout certkey.key -out certificate.crt
-$ cat certificate.crt certkey.key > certkey.pem 
+$ cd cert; openssl req  -nodes -new -x509  -keyout key.pem -out cert.pem
 $ cd ..
 ```
+Note: use the name key.pem and cert.pem...because codewarrior use this file names to load resources.
 
 Execute don't do "cd bin; ./warrior", follow example:
 ```

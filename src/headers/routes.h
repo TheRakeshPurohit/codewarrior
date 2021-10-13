@@ -12,15 +12,10 @@
 #include "frozen/frozen.h" // json parser
 #include "libmongoose/mongoose.h" // HTTPd lib + krypton
 #include "token_anti_csrf.h" // to generate simple token to CSRF mitigation
-#include "whitelist.h" // list os whitelist to access this server, file  "conf/whitelist.conf"
-
-
-struct mg_serve_http_opts s_http_server_opts;
-int is_websocket(const struct mg_connection *nc); 
+#include "allowlist.h" // list os whitelist to access this server, file  "conf/whitelist.conf"
 
 /*
  So this function get msgs from web socket and parse JSON, at end choice a function to execute...
 */
-void broadcast(struct mg_connection *nc, const struct mg_str msg); 
-void ev_handler(struct mg_connection *nc, int ev, void *ev_data); 
+void broadcast(struct mg_connection *c, struct mg_ws_message *msg); 
 

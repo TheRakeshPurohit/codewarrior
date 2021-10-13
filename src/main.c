@@ -5,52 +5,57 @@
 #include <stdbool.h>
 #include "routes.h"
 
-const char *s_ssl_cert = "cert/certkey.pem";
-const char *s_ssl_key = "cert/certkey.key";
-const char *port = "1345"; //port to open
-	
+static const char *s_https_addr = "https://127.0.0.1:1345";  // HTTPS port
+
+
+static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, void *fn_data) 
+{
+	if (ev == MG_EV_ACCEPT && fn_data != NULL) 
+	{
+    		struct mg_tls_opts opts = {
+    	    	.cert = "cert/cert.pem",     // Certificate PEM file
+    	    	.certkey = "cert/key.pem",  // This pem contains both cert and key
+    		};
+    		mg_tls_init(c, &opts);
+
+  	} else if (ev == MG_EV_HTTP_MSG) {
+
+    		struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+
+    		if (mg_http_match_uri(hm, "/health")) {
+     			mg_http_reply(c, 200, "", "1");  
+
+    		} else if (mg_http_match_uri(hm, "/websocket")) {
+      			mg_ws_upgrade(c, hm, NULL);   
+    		} else {
+      			struct mg_http_serve_opts opts = {.root_dir = "web"};
+      			mg_http_serve_dir(c, ev_data, &opts);
+    		}
+
+  	} else if (ev == MG_EV_WS_MSG) {
+    	// Got websocket frame. Received data is wm->data. Echo it back!
+    		struct mg_ws_message *wm = (struct mg_ws_message *) ev_data;
+    		broadcast(c, wm);
+    		mg_iobuf_del(&c->recv, 0, c->recv.len);
+    	}
+
+  	(void) fn_data;
+}
+
+
 int main()
 {
-	struct mg_mgr mgr;
-	struct mg_connection *nc;
-  	struct mg_bind_opts bind_opts;
-  	const char *err;
-
 // global salt generator, for anti-csrf token
 	memset(salt,0,15);
 	rand_str(salt,15);
-
- 	mg_mgr_init(&mgr, NULL);
-	memset(&bind_opts, 0, sizeof(bind_opts));
-  	bind_opts.ssl_cert = s_ssl_cert;
-  	bind_opts.ssl_key = s_ssl_key;
-  	bind_opts.error_string = &err;
-
-  	printf("Starting SSL server on port %s, cert from %s, key from %s\n",
-         port, bind_opts.ssl_cert, bind_opts.ssl_key);
-  	nc = mg_bind_opt(&mgr, port, ev_handler, bind_opts);
-
-  	if (nc == NULL) 
-	{
-    		DEBUG("Failed to create listener: %s\n", err);
-    		return 1;
-  	}
-
-	mg_set_protocol_http_websocket(nc);
-
-  	s_http_server_opts.document_root = "web/";
-  	s_http_server_opts.dav_document_root = "web/";  // Allow access via WebDav
-  	s_http_server_opts.enable_directory_listing = "no";
-
-  	fprintf(stdout,"Code Warrior version 0.5\nserver started at port %s\nOpen your browser in https://127.0.0.1:%s\n", port,port);
-
-
-  	for (;;) 
-    		mg_mgr_poll(&mgr, 1000);
-  	
-  
-  	mg_mgr_free(&mgr);
-
+	// start lib mongoose
+	struct mg_mgr mgr;                           
+	mg_log_set("0");                             
+	printf("Code Warrior\n Listening : %s\n",s_https_addr);
+	mg_mgr_init(&mgr);                            
+	mg_http_listen(&mgr, s_https_addr, init_server_warrior, (void *) 1);	
+	for (;;) mg_mgr_poll(&mgr, 1000);                  
+	mg_mgr_free(&mgr);
 	exit(0);
 }
 
