@@ -193,6 +193,8 @@ init();
   		<option value="eggs/ruby_common_fail.egg">Ruby common fails</option>
   		<option value="eggs/javascript_common_fail.egg">javascript common fails</option>
   		<option value="eggs/asp_common_fails.egg">ASP common fails</option>
+  		<option value="eggs/py_common_fails.egg">Python common fails</option>
+  		<option value="eggs/golang_common_fails.egg">Golang common fails</option>
 	      </select > 
               Extension: <select id="extension">
   		<option value=".(c|cpp)$">.c, .cpp</option>
@@ -202,6 +204,10 @@ init();
   		<option value=".rb$">.rb</option>
   		<option value=".(js|html)$">.js, .html</option>
   		<option value=".(asp|aspx)$">.asp, .aspx</option>
+  		<option value=".py$">.py, .pyc</option>
+  		<option value=".go$">.go</option>
+
+
 	      </select > <br>
               Automaton: <select id="analyser">
   		<option value="stack_c.dl">Stack overflow detector</option>
