@@ -33,7 +33,7 @@ bool path_is_valid(char * path)
 
 bool extension_is_valid(char * extension)
 {
-    char *whitelist[]={".(c|cpp)$",".php$",".cs$",".(jad|java|class)$",".rb$",".(js|html)$",".(asp|aspx)$",".py$",".go$"};
+    char *whitelist[]={".(c|cpp)$",".php$",".cs$",".(jad|java|class)$",".rb$",".(js|html)$",".(asp|aspx)$",".py$",".go$",".swift$"};
     short sizelist=0;
     size_t size_extension=0;	
 
@@ -56,7 +56,7 @@ bool extension_is_valid(char * extension)
 
 bool module_is_valid(char * module)
 {
-    char *whitelist[]={"eggs/c_common_failures.egg","eggs/php_common_fail.egg","eggs/csharp_common_fails.egg","eggs/java_common_fail.egg","eggs/ruby_common_fail.egg","eggs/javascript_common_fail.egg","eggs/asp_common_fails.egg","eggs/py_common_fails.egg","eggs/golang_common_fails.egg"};
+    char *whitelist[]={"eggs/c_common_failures.egg","eggs/php_common_fail.egg","eggs/csharp_common_fails.egg","eggs/java_common_fail.egg","eggs/ruby_common_fail.egg","eggs/javascript_common_fail.egg","eggs/asp_common_fails.egg","eggs/py_common_fails.egg","eggs/golang_common_fails.egg","eggs/swift_common_fails.egg"};
     short sizelist=0;
     size_t sizemodule=0;
 

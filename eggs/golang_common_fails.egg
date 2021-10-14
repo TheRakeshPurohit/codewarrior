@@ -30,4 +30,16 @@
  ::Relevance::( High ):: 
  ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
  ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\) #::
+
+  ::Title::( Weak encription):: 
+ ::Description::( weak encription )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://www.owasp.org/index.php/Testing_for_Weak_Encryption_(OTG-CRYPST-004) )::
+ ::Match::#encode64|md5|MD5|MD4|RC4|RC2|DES|Blowfish|SHA-1|ECB|CBC#::
+
+ ::Title::( Information Leak):: 
+ ::Description::( Information  leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://www.owasp.org )::
+ ::Match::#senha|password|passwd|pass|secret|token|key|chave|version|\.pdf|\.doc|\.zip|\.xls#::
  
