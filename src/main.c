@@ -10,6 +10,7 @@ static const char *s_https_addr = "https://127.0.0.1:1345";  // HTTPS port
 
 static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, void *fn_data) 
 {
+
 	if (ev == MG_EV_ACCEPT && fn_data != NULL) 
 	{
     		struct mg_tls_opts opts = {
@@ -19,6 +20,7 @@ static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, 
     		mg_tls_init(c, &opts);
 
   	} else if (ev == MG_EV_HTTP_MSG) {
+
 
     		struct mg_http_message *hm = (struct mg_http_message *) ev_data;
 
@@ -37,6 +39,16 @@ static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, 
     		struct mg_ws_message *wm = (struct mg_ws_message *) ev_data;
     		broadcast(c, wm);
     		mg_iobuf_del(&c->recv, 0, c->recv.len);
+    }
+
+    char addr[1024];
+    mg_straddr(c, addr, sizeof(addr));
+
+    // only 127.0.0.1 can access, you can edit allowlist at file config/allowlist.conf, you can use regex at list...
+    	if(allowlist_ip(addr)==false)
+    	{
+    		mg_http_reply(c, 404, "%s\n", addr);
+    		return;
     	}
 
   	(void) fn_data;

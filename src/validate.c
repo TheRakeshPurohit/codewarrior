@@ -4,7 +4,7 @@
 bool path_is_valid(char * path)
 {
     struct stat sb;
-    char *blacklist[]={"..\\","../","%2e","%5c","%2f","%255c","%252e","%9c","%c\0"};
+    char *blocklist[]={"..\\","../","%2e","%5c","%2f","%255c","%252e","%9c","%c\0"};
     short sizelist=0;
     size_t sizepath=0;
 
@@ -13,9 +13,9 @@ bool path_is_valid(char * path)
 
 	while(sizelist!=9)
 	{
-		sizepath=strlen(blacklist[sizelist]);	
+		sizepath=strlen(blocklist[sizelist]);	
 
-			if(strnstr(path,blacklist[sizelist],sizepath))
+			if(strnstr(path,blocklist[sizelist],sizepath))
 				return false;
 
 		sizelist++;
