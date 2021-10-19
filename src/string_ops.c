@@ -9,21 +9,16 @@ char *filter_text_form(char *text_module)
 {
 
 	char newline[]={' ',' ','\n'};
-	char newt[]={"\\t"};
-	char new2[]={' '};
 	char *clean_text=replace(text_module,"\\n",newline);
-	char *clean_text2=replace(clean_text,newt,new2);
-	char *clean_text3=replace(clean_text2," \\t","  ");
+	char *clean_text2=replace(clean_text," \\t","  ");
 
-	XFREE(clean_text);
-	XFREE(clean_text2);
+	char *ret=rm_extra_slash(clean_text2);
+	//char *ret2=rm_extra_slash(ret);
 
-	char *ret=rm_extra_slash(clean_text3);
-	char *ret2=rm_extra_slash(ret);
+	//XFREE(clean_text2);
+	//XFREE(clean_text);
 
-//	XFREE(clean_text3);
-
-	return ret2;
+	return ret;
 }
 
 

@@ -9,7 +9,7 @@
 
 char *file_content(const char * filename) 
 {
-    FILE *fp = fopen(filename, "r");
+    FILE *fp = fopen(filename, "rb");
     size_t file_size;
     long pos;
     char *file_contents;
@@ -676,7 +676,7 @@ void Write_File(char *file,char *str)
 {
 	FILE *arq;
  
-	arq=fopen(file,"w"); 
+	arq=fopen(file,"wb"); 
 
 	if ( arq == NULL ) 
 	{

@@ -169,7 +169,7 @@ void broadcast(struct mg_connection *c, struct mg_ws_message *msg)
 						XFREE(egg);
 						XFREE(module_content);
 						XFREE(token);
-						mg_ws_send(c, "XSS Detect error !", 15, WEBSOCKET_OP_TEXT);
+						mg_ws_send(c, "XSS Detect error !", 18, WEBSOCKET_OP_TEXT);
 						return; 
 					}
 					
@@ -200,15 +200,14 @@ void broadcast(struct mg_connection *c, struct mg_ws_message *msg)
 					}
 	
 					char *clean_text=filter_text_form(text_module);
-
 					Write_File(egg,clean_text);					
 
 					form6=0;
 	
-					XFREE(egg);	
+					XFREE(egg);				
+					XFREE(clean_text);
 					XFREE(text_module);
 					XFREE(csrf_token);
-					XFREE(clean_text);
 				}
 			
 			XFREE(action);

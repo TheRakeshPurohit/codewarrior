@@ -1,96 +1,39 @@
-::::::::::::::::::::::::::::::::::::::::::::::::::::EGG:COMMON:ASP:FAILURES  
+::::::::::::::::::::::::::::::::::::::::::::::::::::EGG:COMMON:GOLANG:FAILURES  
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  
+  
+ ::Title::( File Manipulation )::     
+ ::Description::( File Manipulation this is notification )::   
+ ::Relevance::( Low )::   
+ ::Reference::( search race conditions, file manipulation etc... )::   
+ ::Match::# OpenTextFile|WriteLine|GetFileName|CreateTextFile #::   
+  
+ ::Title::( Possible Command injection )::    
+ ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. )::   
+ ::Relevance::( High )::   
+ ::Reference::( https://www.owasp.org/index.php/Command_Injection )::   
+ ::Match::# WScript\.Shell|\.Exec|\.run \" #::   
+  
+ ::Title::( Possible XSS )::      
+ ::Description::( notification at possible XSS )::  
+ ::Relevance::( High )::   
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::  
+ ::Match::# (response\.write ) #::  
+  
+ ::Title::( SHow inputs like get/post/cookies etc... )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# request\.querystring|request\.form|Response\.Cookies|Request\.Cookies|Session #::  
+  
+ ::Title::( Possible SQL injection )::    
+ ::Description::( notification possible SQL injection )::  
+ ::Relevance::( High )::   
+ ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::  
+ ::Match::# ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT #::  
+  
+ ::Title::( Logic fail )::    
+ ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::  
+ ::Relevance::( High )::   
+ ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::  
+ ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|\")\s?\) #::  
    
-\t::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  
-   
-t  
-   
-t ::Title::( File Manipulation <script>alert(1);</script> )::    
-t  
-   
-\t ::Description::( File Manipulation. this is notification )::   
-   
-t ::Relevance::( Low )::   
-   
-t ::Reference::( search race conditions, file manipulation etc... )::   
-   
-t ::Match::# open|read|close|mkdir|unlink #::   
-   
-\t  
-   
-t ::Title::( Possible Command injection )::    
-t  
-   
-t ::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. )::   
-   
-\t ::Relevance::( High )::   
-   
-t ::Reference::( https://www.owasp.org/index.php/Command_Injection )::   
-   
-t ::Match::# popen|execv|system " #::   
-   
-\t  
-   
-t ::Title::( SHow inputs like get/post/cookies etc... )::   
-t  
-   
-t ::Description::( notification input here )::  
-   
-\t ::Relevance::( Low )::   
-   
-t ::Reference::( search SQLi,XSS etc... )::  
-   
-t ::Match::# FormValue|Request|Unmarshal #::  
-   
-t  
-   
-\t ::Title::( Possible SQL injection )::   
-t  
-   
-t ::Description::( notification possible SQL injection )::  
-   
-t ::Relevance::( High )::   
-   
-\t ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::  
-   
-t ::Match::# gorm|prepare|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT #::  
-   
-t  
-   
-t ::Title::( Logic fail )::   
-\t  
-   
-t ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::  
-   
-t ::Relevance::( High )::   
-   
-t ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::  
-   
-\t ::Match::# ifs?\(s?\$.*s?(?<!\!)=s?('|").*('|\")s?\) #::  
-   
-t  
-   
-t  ::Title::( Weak encription)::   
-   
-t ::Description::( weak encription )::  
-   
-\t ::Relevance::( Low )::   
-   
-t ::Reference::( https://www.owasp.org/index.php/Testing_for_Weak_Encryption_(OTG-CRYPST-004) )::  
-   
-t ::Match::#encode64|md5|MD5|MD4|RC4|RC2|DES|Blowfish|SHA-1|ECB|CBC#::  
-   
-t  
-   
-\t ::Title::( Information Leak)::   
-   
-t ::Description::( Information  leak )::  
-   
-t ::Relevance::( Low )::   
-   
-t ::Reference::( https://www.owasp.org )::  
-   
-\t ::Match::#senha|password|passwd|pass|secret|token|key|chave|version|.pdf|\.doc|.zip|\.xls#::  
-   
-t   
-   
-t
