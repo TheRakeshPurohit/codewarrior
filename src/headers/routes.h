@@ -11,6 +11,7 @@
 #include "BSD/strsec.h" // OPENBSD's strlcpy(), strlcat() and strnstr() from FreeBSD
 #include "frozen/frozen.h" // json parser
 #include "libmongoose/mongoose.h" // HTTPd lib + krypton
+#include "libinjection/libinjection_xss.h"
 #include "token_anti_csrf.h" // to generate simple token to CSRF mitigation
 #include "allowlist.h" // list os whitelist to access this server, file  "conf/whitelist.conf"
 

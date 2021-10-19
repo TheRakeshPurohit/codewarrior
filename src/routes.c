@@ -146,23 +146,32 @@ void broadcast(struct mg_connection *c, struct mg_ws_message *msg)
 // token anti-csrf					
 					char *token=gen_anticsrf_token(0); 
 					char *module_content=file_content(egg); 
-// anti-xss 
-					char *content=html_entities2(module_content); // but this version allow reverse slash to use in regex
-					size_t size_form=strlen(content)+150+strlen(token); 
-					char *form_edit=xmallocarray(size_form,sizeof(char));
-					
+					size_t module_len=strlen(module_content);	
+// test if have xss
+					if (libinjection_xss(module_content,module_len)!= 1)
+					{
+						//char *content=html_entities(module_content); // if need sanitize
+						size_t size_form=module_len+150+strlen(token); 
+						char *form_edit=xmallocarray(size_form,sizeof(char));
+						
 
-					snprintf(form_edit,size_form,"<input type=\"hidden\" id=\"csrf_token\" value=\"%s\"><br><textarea id=\"text_module\" rows=\"30\" cols=\"140\" >%s</textarea><br><button id=\"save\">save</button><br>", token, content);		
+						snprintf(form_edit,size_form,"<input type=\"hidden\" id=\"csrf_token\" value=\"%s\"><br><textarea id=\"text_module\" rows=\"30\" cols=\"140\" >%s</textarea><br><button id=\"save\">save</button><br>", token, module_content);		
 
-					mg_ws_send(c, form_edit, size_form, WEBSOCKET_OP_TEXT);
+						mg_ws_send(c, form_edit, size_form, WEBSOCKET_OP_TEXT);
 
-					form5=0;			
-					
-					XFREE(egg);
-					XFREE(module_content);
-					XFREE(content);
-					XFREE(token);
-					XFREE(form_edit);
+						form5=0;			
+						
+						XFREE(egg);
+						XFREE(module_content);
+						XFREE(token);
+						XFREE(form_edit);
+					} else {
+						XFREE(egg);
+						XFREE(module_content);
+						XFREE(token);
+						mg_ws_send(c, "XSS Detect error !", 15, WEBSOCKET_OP_TEXT);
+						return; 
+					}
 					
 				}
 

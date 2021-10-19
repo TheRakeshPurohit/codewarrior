@@ -63,7 +63,7 @@ bool module_is_valid(char * module)
 	if(module==NULL)
 		return false;
 
-	while(sizelist!=9)
+	while(sizelist!=10)
 	{
 		sizemodule=strlen(whitelist[sizelist]);	
 
