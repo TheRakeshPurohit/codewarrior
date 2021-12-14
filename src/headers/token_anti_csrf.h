@@ -1,3 +1,5 @@
+#ifndef _TOKEN_ANTI_CSRF_H
+#define _TOKEN_ANTI_CSRF_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -10,7 +12,7 @@
 #include <stdint.h>
 
 // random string
-char salt[16];
+extern char salt[16];
 
 char * make_hash(unsigned char hash[]);
 int Base64encode_len(int len);
@@ -23,4 +25,4 @@ char *gen_anticsrf_token(int num);
 // check token 
 bool csrf_token_check(char *token_input);
 
-
+#endif

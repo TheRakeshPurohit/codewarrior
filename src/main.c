@@ -4,7 +4,8 @@
 #include <sys/resource.h>
 #include <stdbool.h>
 #include "routes.h"
-
+#include "token_anti_csrf.h" 
+char salt[16];
 static const char *s_https_addr = "https://127.0.0.1:1345";  // HTTPS port
 
 

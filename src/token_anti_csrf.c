@@ -79,7 +79,7 @@ char *gen_anticsrf_token(int num)
 
 	memset(key_end,0,31);
 	memset(buf,0,31);
-
+        //extern char salt[16];	
 	snprintf((char *)key_end,32,"%s%s%s",salt,hour_minutes,key);
 
 	sha256_init2(&ctx);
