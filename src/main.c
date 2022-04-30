@@ -15,8 +15,8 @@ static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, 
 	if (ev == MG_EV_ACCEPT && fn_data != NULL) 
 	{
     		struct mg_tls_opts opts = {
-    	    	.cert = "cert/cert.pem",     // Certificate PEM file
-    	    	.certkey = "cert/key.pem",  // This pem contains both cert and key
+    	    	.cert = "cert/certkey.pem",     // Certificate PEM file
+    	    	.certkey = "cert/privateKey.key",  // This pem contains both cert and key
     		};
     		mg_tls_init(c, &opts);
 
