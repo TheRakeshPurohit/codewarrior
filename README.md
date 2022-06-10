@@ -1,6 +1,6 @@
 # codewarrior
 
-Codewarrior is just another tool for code analysis. 
+Codewarrior is just another tool for static code analysis. 
 ![Alt text](https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/img1.png)
 The tool uses HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
 
