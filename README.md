@@ -1,29 +1,33 @@
 # codewarrior
-Just another code analysis tool and static analysis tool 
+
+Codewarrior is just another tool for code analysis. 
 ![Alt text](https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/img1.png)
-Codewarrior runs at HTTPd with TLS, uses the KISS principle(https://en.wikipedia.org/wiki/KISS_principle)
+The tool uses HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
 
 Video demo: https://youtu.be/tZkllJ9mieU
 
-#Directories:
+# Features
+* Code search by regex pattern
+* Resources to custom rules
+* HTTPd view with web socket resources
+* Recursive scan 
+* Syntax highlight by programming language
+
+# Directories overview:
+```
 > web/ = local of javascripts and html and css sources
-
 > src/ = C source code, this code talking with web socket 
-
 > eggs/ = external modules to search codes using regex
-
 > conf/whitelist.conf = list of IPs that have  access to the HTTPd server
-
 > bin/ = file to execute...
-
 > doc/ = at construction...
-
 > lib/ = External libraries
-
 > cert/ = loads your certificates for TLS here
+```
+You don't need to install it, but it must compile and run. 
+Has full support for Linux and *BSD.
 
-You don't need to install, compile and run... runs at *Linux,* *BSD* and *MacOS.*
-need to install OpenSSL-dev or OpenSSL-devel package because need OpenSSL lib.
+So, you needs to install OpenSSL-dev or OpenSSL-devel package
 ```
 $ git clone https://github.com/CoolerVoid/codewarrior/; cd CodeWarrior
 $ make
@@ -43,7 +47,7 @@ $ bin/warrior
 Open browser at *https://127.0.0.1:1345/index.html*   (dont write localhost use 127.0.0.1)
 
 #Notes:
->* if screen stock, you refresh the browser with F5...
+>* if screen stock, you can refresh the browser with F5 and try again.
 >* If return error, port already in use... close it with this following:
 ``` 
 $ fuser -k -n tcp 1345
