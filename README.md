@@ -13,6 +13,7 @@ https://youtu.be/tZkllJ9mieU
 * HTTPd view with web socket resources
 * Recursive scan 
 * Syntax highlight by programming language
+* Resource to control IP address access by allow list.
 
 # Compile and run
 
