@@ -1,16 +1,31 @@
 on:
   push:
+    branches: ['master']
+  pull_request:
+    branches: '**'
   schedule:
     - cron: "0 16 * * 1"
 
-jobs:  
+permissions:
+  contents: read
 
-- uses: AppThreat/sast-scan-action@master
- with:
- type: "c"
+jobs:
 
-- uses: actions/upload-artifact@v1
+sastscan:
+ name: ShiftLeft/Sast-scan
+ runs-on: ubuntu-latest
+ 
+ container:
+  image: shoiftleft/scan
+
+steps:
+ - uses: actions/checkout@v3
+ - name: ShiftLeft Sast-scan
+   run: scan --no-error --local-only
+ 
+ - name: Upload SastScan report  
+ - uses: actions/upload-artifact@v2
  with:
   name: reports
   path: reports
-    
+ if: always()
