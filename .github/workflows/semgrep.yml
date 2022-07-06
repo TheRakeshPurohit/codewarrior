@@ -16,7 +16,7 @@ jobs:
   runs-on: ubuntu-latest
  
   container:
-   image: shoiftleft/scan
+   image: shiftleft/scan
 
   steps:
    - uses: actions/checkout@v3
