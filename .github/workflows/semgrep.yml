@@ -3,13 +3,13 @@ on:
   schedule:
     - cron: "0 16 * * 1"
     
-jobs:
- - uses: AppThreat/sast-scan-action@master
-   with:
-     type: "c"
 
- - uses: actions/upload-artifact@v1
-   with:
-     name: reports
-     path: reports
+- uses: AppThreat/sast-scan-action@master
+ with:
+ type: "c"
+
+- uses: actions/upload-artifact@v1
+ with:
+  name: reports
+  path: reports
     
