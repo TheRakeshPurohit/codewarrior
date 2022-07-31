@@ -24,13 +24,13 @@ So, you needs to install OpenSSL-dev or OpenSSL-devel package
 $ git clone https://github.com/CoolerVoid/codewarrior/; cd CodeWarrior
 $ make
 ```
-For example, if you need to create your cert and load, remember, following production context, I don`t recommend self-signed cert.
+For example, if you need to create your cert and load, remember, following production context, *I don`t recommend self-signed cert.*
 ```
 $ cd cert; openssl req  -nodes -new -x509  -keyout key.pem -out cert.pem
 $ cd ..
 ```
 Note: use the name key.pem and cert.pem, because codewarrior use this file names to load resources in directory cert/.
-For secure cert use letsencrypt service https://letsencrypt.org
+*For secure cert use letsencrypt service https://letsencrypt.org*
 
 
 Execute don't do "cd bin; ./warrior", follow example:
