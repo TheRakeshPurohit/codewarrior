@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h> 
 #include <sys/types.h>
 #include <string.h>
 #include <stdbool.h>
@@ -17,6 +18,7 @@
 #define GREEN "\033[22;32m"
 #define LAST "\033[0m"
 
+bool file_exists (char *filename);
 char *file_content(const char * filename); 
 char *ReadLines(char * NameFile);
 void *Search_for(char * NameFile,char *regex);

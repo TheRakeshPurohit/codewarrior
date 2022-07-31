@@ -7,6 +7,12 @@
 #include "validate.h"
 #define MAX_file_len 1000000
 
+bool file_exists (char *filename) 
+{
+	struct stat   buffer;   
+	return (stat (filename, &buffer) == 0);
+}
+
 char *file_content(const char * filename) 
 {
     FILE *fp = fopen(filename, "rb");

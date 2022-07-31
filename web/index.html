@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
-<link rel="icon" 
+	<link rel="icon" 
       type="image/png" 
       href="img/ninja2.jpg">
   <meta charset="utf-8" />
@@ -195,19 +195,28 @@ init();
   		<option value="eggs/asp_common_fails.egg">ASP common fails</option>
   		<option value="eggs/py_common_fails.egg">Python common fails</option>
   		<option value="eggs/golang_common_fails.egg">Golang common fails</option>
+      <option value="eggs/mobile_common_fails.egg">Mobile common fails(Android, iOS)</option>
+  		<option value="eggs/all_langs.egg">Generic finds for common pitfalls</option>
+
       <option value="eggs/swift_common_fails.egg">Swift common fails</option>
 	      </select > 
               Extension: <select id="extension">
-  		<option value=".(c|cpp)$">.c, .cpp</option>
+  		<option value=".(c|cpp|h|hpp)$">.c, .cpp</option>
   		<option value=".php$">.php</option>
   		<option value=".cs$">.cs</option>
   		<option value=".(jad|java|class)$">.jad, .java, .class</option>
   		<option value=".rb$">.rb</option>
-  		<option value=".(js|html)$">.js, .html</option>
+  		<option value=".(js|html|css)$">.js, .html, CSS</option>
   		<option value=".(asp|aspx)$">.asp, .aspx</option>
   		<option value=".py$">.py, .pyc</option>
   		<option value=".go$">.go</option>
-      <option value=".swift$">.swift</option>
+  		<option value=".*">All extensions</option>
+      <option value=".swift$">Swift</option>
+      <option value=".kt$">Kotlin</option>
+       <option value=".dart$">Dart</option>
+       <option value=".xml$">XML</option>
+       <option value=".s$">Assembly</option>
+        <option value=".rs$">Rust</option>
 
 
 	      </select > <br>

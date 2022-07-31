@@ -1,0 +1,64 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::EGG:COMMON:mobile:FAILURES
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+ ::Title::( Use of anti-jailbreak ):: 	
+ ::Description::( Jailbreak detection enable sink ):: 
+ ::Relevance::( Warning ):: 
+ ::Reference::( Detect root resource ):: 
+ ::Match::#JailbreakDetection|isJailbroken|isRooted|Root\.exec|cydia#:: 
+
+ ::Title::( Cert pinning detect):: 	
+ ::Description::( detect cert pinning resource ):: 
+ ::Relevance::( Warning ):: 
+ ::Reference::( Cert pinning resource ):: 
+ ::Match::#badCertificateCallback|TrustedCertificatesByte|SecurityContext|PiningSslData|SslPinningPlugin#:: 
+
+ ::Title::( Sinks of obfuscation )::	
+ ::Description::( notification  )::
+ ::Relevance::( Warning ):: 
+ ::Reference::( sink of resource anti tampering )::
+ ::Match::# proguard|obfuscate|minifyEnabled|promon|arxan|appdome #::
+
+ ::Title::( SQL sink )::	
+ ::Description::( SQL sink )::
+ ::Relevance::( Warning ):: 
+ ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::
+ ::Match::#DROP|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT|sqlite|oracle#::
+
+ ::Title::( Logic fail )::	
+ ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://en.wikipedia.org/wiki/Logic_error)::
+ ::Match::# if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\) #::
+
+  ::Title::( Weak encription):: 
+ ::Description::( weak encription )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://www.owasp.org/index.php/Testing_for_Weak_Encryption_(OTG-CRYPST-004) )::
+ ::Match::#encode64|md5|MD5|MD4|RC4|RC2|DES|Blowfish|SHA-1|ECB|CBC#::
+
+ ::Title::( Information Leak):: 
+ ::Description::( Information  leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://www.owasp.org )::
+ ::Match::#senha|password|passwd|pass|secret|token|key|chave|version|\.pdf|\.doc|\.zip|\.xls#::
+ 
+ ::Title::( Secure storage )::	
+ ::Description::( Sink of safe storage )::
+ ::Relevance::( Warning ):: 
+ ::Reference::( safe storage  )::
+ ::Match::#flutter_secure_storage|encryptedShared|FlutterSecureStorage#::
+
+ ::Title::( Detect insecure communication )::	
+ ::Description::( Communication without TLS )::
+ ::Relevance::( High ):: 
+ ::Reference::( Insecure communication  )::
+ ::Match::#ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv#::
+
+ ::Title::( Check SDK version )::	
+ ::Description::( Detect version of SDK )::
+ ::Relevance::( warning ):: 
+ ::Reference::( information disclosure  )::
+ ::Match::#minSdkVersion#::
+
+

@@ -4,7 +4,9 @@
 #include <sys/resource.h>
 #include <stdbool.h>
 #include "routes.h"
-#include "token_anti_csrf.h" 
+#include "token_anti_csrf.h"
+#include "file_ops.h"
+
 char salt[16];
 static const char *s_https_addr = "https://127.0.0.1:1345";  // HTTPS port
 
@@ -14,11 +16,23 @@ static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, 
 
 	if (ev == MG_EV_ACCEPT && fn_data != NULL) 
 	{
-    		struct mg_tls_opts opts = {
-    	    	.cert = "cert/certkey.pem",     // Certificate PEM file
-    	    	.certkey = "cert/privateKey.key",  // This pem contains both cert and key
-    		};
-    		mg_tls_init(c, &opts);
+		// if exist ca.pem uses Two way TLS
+		if(file_exists("cert/ca.perm"))
+		{
+    			struct mg_tls_opts opts = {
+				.ca = "cert/ca.pem",         // CA file
+    	    			.cert = "cert/cert.pem",     // Certificate PEM file
+    	    			.certkey = "cert/key.pem",  // This pem contains both cert and key
+    			};
+    			mg_tls_init(c, &opts);
+		} else {
+    			struct mg_tls_opts opts = {
+    	    			.cert = "cert/cert.pem",     // Certificate PEM file
+    	    			.certkey = "cert/key.pem",  // This pem contains both cert and key
+    			};
+	    		mg_tls_init(c, &opts);
+		}
+
 
   	} else if (ev == MG_EV_HTTP_MSG) {
 

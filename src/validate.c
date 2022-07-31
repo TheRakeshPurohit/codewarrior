@@ -56,18 +56,18 @@ bool extension_is_valid(char * extension)
 
 bool module_is_valid(char * module)
 {
-    char *whitelist[]={"eggs/c_common_failures.egg","eggs/php_common_fail.egg","eggs/csharp_common_fails.egg","eggs/java_common_fail.egg","eggs/ruby_common_fail.egg","eggs/javascript_common_fail.egg","eggs/asp_common_fails.egg","eggs/py_common_fails.egg","eggs/golang_common_fails.egg","eggs/swift_common_fails.egg"};
+    char *allowlist[]={"eggs/c_common_failures.egg","eggs/php_common_fail.egg","eggs/csharp_common_fails.egg","eggs/java_common_fail.egg","eggs/ruby_common_fail.egg","eggs/javascript_common_fail.egg","eggs/asp_common_fails.egg","eggs/py_common_fails.egg","eggs/golang_common_fails.egg","eggs/swift_common_fails.egg","eggs/all_langs.egg","eggs/mobile_common_fail.egg"};
     short sizelist=0;
     size_t sizemodule=0;
 
 	if(module==NULL)
 		return false;
 
-	while(sizelist!=10)
+	while(sizelist!=12)
 	{
-		sizemodule=strlen(whitelist[sizelist]);	
+		sizemodule=strlen(allowlist[sizelist]);	
 
-			if(strnstr(module,whitelist[sizelist],sizemodule))
+			if(strnstr(module,allowlist[sizelist],sizemodule))
 				return true;
 
 		sizelist++;

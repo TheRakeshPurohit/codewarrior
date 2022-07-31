@@ -8,10 +8,9 @@ The tool uses HTTPd resources with TLS, design pattern follows the KISS principl
 https://youtu.be/tZkllJ9mieU
 
 # Features
-* Code search by regex pattern
-* Resources to custom rules
-* HTTPd view with web socket resources
-* Recursive scan 
+* Recursive code search by regex pattern and file extension
+* Resources to load and search custom rules
+* HTTPd view with web socket resources and jquery
 * Syntax highlight by programming language
 * Resource to control IP address access by allow list.
 
@@ -25,12 +24,14 @@ So, you needs to install OpenSSL-dev or OpenSSL-devel package
 $ git clone https://github.com/CoolerVoid/codewarrior/; cd CodeWarrior
 $ make
 ```
-For example, if you need to create your cert and load...
+For example, if you need to create your cert and load, remember, following production context, I don`t recommend self-signed cert.
 ```
 $ cd cert; openssl req  -nodes -new -x509  -keyout key.pem -out cert.pem
 $ cd ..
 ```
-Note: use the name key.pem and cert.pem...because codewarrior use this file names to load resources.
+Note: use the name key.pem and cert.pem, because codewarrior use this file names to load resources in directory cert/.
+For secure cert use letsencrypt service https://letsencrypt.org
+
 
 Execute don't do "cd bin; ./warrior", follow example:
 ```
@@ -46,17 +47,16 @@ Open browser at *https://127.0.0.1:1345/index.html*   (dont write localhost use 
 $ fuser -k -n tcp 1345
 ```
 
-* If you want to use the network, Whitelist to access server you can edit at "config/whitelist.conf". 
+* If you want to use the network, allowlist to access server you can edit at "config/allowlist.conf". 
 * Use chrome browser to run.
 * Use 127.0.0.1 addr don't use localhost name.
 
-# Tested at path:  
+# Test in video demo, uses repository php-security-pitfalls to find points of attention:  
 *https://github.com/joostvanveen/php-security-pitfalls*
 
 
 # Tricks:
 ```
-* if you want to change cert "cert/certpem.pem" generate with OpenSSL certificate and key and concatenate both...
 * all HTML code and web sockets + javascript code you can view at path "web/".
 * if you change the default port, you need to edit port in web/ at web sockets connection.
 ```
@@ -66,14 +66,20 @@ $ fuser -k -n tcp 1345
 > web/ = local of javascripts and html and css sources
 > src/ = C source code, this code talking with web socket 
 > eggs/ = external modules to search codes using regex
-> conf/whitelist.conf = list of IPs that have  access to the HTTPd server
+> conf/allowlist.conf = list of IPs that have  access to the HTTPd server
 > bin/ = file to execute...
 > doc/ = at construction...
 > lib/ = External libraries
 > cert/ = loads your certificates for TLS here
 ``` 
 
-# TODO:
+# Extra, Two way hand TLS
+So,you can use TWO way TLS in codewarrior, you need create CA file in cert/ca.pem, so codewarrior
+detect existence of file and load him to use Two way TLS.
+
+
+
+# Future TODO:
 * Add external Automatons for each language case
 * Add load module with dlopen()
 * Add ReDOS validator at regex calls

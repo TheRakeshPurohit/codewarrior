@@ -1,0 +1,81 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::EGG:COMMON:PITFALLS
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+ ::Title::( Token leak ):: 	
+ ::Description::( Token leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# ^\s*access_token:\s*[a-zA-Z0-9\.\-\_\!\?\#\&\*\:\;\@\(\)\<\>\%]{18,}\s*$|"AUTH"[,\s]+"[^\n]{5,99}".{0,99}$ #:: 
+
+ ::Title::( Token leak 2 ):: 	
+ ::Description::( Token leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# ^.{0,299}x-access-token.{0,299}$|^[^=\n]{0,199}API_KEY[^\n]{7,199}$|api_token=[0-9a-f]{40}.{0,200}$ #::
+
+ ::Title::( Pub key leak ):: 
+ ::Description::( key leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html)::
+ ::Match::# \-----BEGIN[A-Z\s]*KEY[A-Z\s]*----- #::
+
+ ::Title::( AWS key leak ):: 	
+ ::Description::( AWS key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::#(^|[^A-Z0-9])(AKIA|ASIA)[A-Z0-9]{16}($|[^A-Z0-9]).{0,99}$|(AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY|AWS_DEFAULT_REGION).{20,199}$#:: 
+
+ ::Title::( AWS key leak 2 ):: 	
+ ::Description::( AWS key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::#(AWSSecretKey|AwsDevSecretKey|SecretKey|ClientSecret|BasicAWSCredentials|clientSecret|AWS_SECRET_KEY|AgentToken).{0,199}$#:: 
+
+ ::Title::( Google key leak):: 	
+ ::Description::( Google key leak):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::#clientId.{30,80}googleusercontent.com.{0,299}$ #:: 
+
+ ::Title::( Amazon leak 1 ):: 	
+ ::Description::( Amazon key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::#s3://[^\.].{3,199}$|https://s3-.{3,299}$|["\'][A-Za-z0-9/+=]{40}["\'].{0,99}$#:: 
+
+ ::Title::( Azure key leak ):: 	
+ ::Description::( Azure key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::#client_id[^\n]+[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}.{0,199}$#:: 
+
+ ::Title::( azure key leak 2 ):: 	
+ ::Description::( azure key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::#client_secret[^\n]+\W[a-zA-Z0-9\+\-\_\/]{32}\W.{0,199}$|[Aa]zure[Ss]torage[Kk]ey.*[Aa]ccount[Kk]ey.{0,499}$|tenant_id[^\n]+[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}.{0,199}$#:: 
+
+ ::Title::( Key MySQL):: 
+ ::Description::( weak encription )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::#\Wmysql\s.{0,99}[^-]-p[^\$\%].{0,99}$#::
+
+ ::Title::( Weak encription):: 
+ ::Description::( weak encription )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://www.owasp.org/index.php/Testing_for_Weak_Encryption_(OTG-CRYPST-004) )::
+ ::Match::#encode64|md5|MD5|MD4|RC4|RC2|DES|Blowfish|SHA-1|ECB|CBC|base64#::
+
+ ::Title::( Information Leak):: 
+ ::Description::( Information  leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::#senha|password|passwd|pass|secret|token|key|chave|version|wallet#::
+ 
+ ::Title::( Postgres leak ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# ^[.a-zA-Z0-9_-]+(:[.a-zA-Z0-9_-]+){4}$|\W[0-9a-zA-Z]{32}:[0-9a-zA-Z]{2,20}\W.{0,99} $#::
+
