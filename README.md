@@ -17,9 +17,9 @@ https://youtu.be/tZkllJ9mieU
 # Compile and run
 
 You don't need to install it, but it must compile and run. 
-Has full support for Linux and *BSD.
+So it has full support for Linux and *BSD.
 
-So, you needs to install OpenSSL-dev or OpenSSL-devel package
+So to run, you need to install OpenSSL-dev or OpenSSL-devel package
 ```
 $ git clone https://github.com/CoolerVoid/codewarrior/; cd CodeWarrior
 $ make
@@ -51,14 +51,15 @@ $ fuser -k -n tcp 1345
 * Use chrome browser to run.
 * Use 127.0.0.1 addr don't use localhost name.
 
-# Test in video demo, uses repository php-security-pitfalls to find points of attention:  
+# Test in video demo
+uses repository php-security-pitfalls to find points of attention:  
 *https://github.com/joostvanveen/php-security-pitfalls*
 
 
 # Tricks:
 ```
-* all HTML code and web sockets + javascript code you can view at path "web/".
-* if you change the default port, you need to edit port in web/ at web sockets connection.
+* All HTML code and web sockets + javascript code you can view at path "web/".
+* If you change the default port, you need to edit port in web/ at web sockets connection.
 ```
 
 # Directories overview:
@@ -73,7 +74,7 @@ $ fuser -k -n tcp 1345
 > cert/ = loads your certificates for TLS here
 ``` 
 
-# Extra, Two way hand TLS
+# Extra, Two way TLS
 So,you can use TWO way TLS in codewarrior, you need create CA file in cert/ca.pem, so codewarrior
 detect existence of file and load him to use Two way TLS.
 
