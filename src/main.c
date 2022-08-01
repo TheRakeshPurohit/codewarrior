@@ -45,7 +45,8 @@ static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, 
     		} else if (mg_http_match_uri(hm, "/websocket")) {
       			mg_ws_upgrade(c, hm, NULL);   
     		} else {
-      			struct mg_http_serve_opts opts = {.root_dir = "web"};
+      			struct mg_http_serve_opts opts = {.root_dir = "web",
+							  .extra_headers = "Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' 'unsafe-eval';\r\nX-Frame-Options: SAMEORIGIN\r\nX-Content-Type-Options: nosniff\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains;\r\nX-DNS-Prefetch-Control: off\r\nCross-Origin-Opener-Policy: same-origin\r\nX-Permitted-Cross-Domain-Policies: none\r\nCross-Origin-Resource-Policy: same-origin\r\n"};
       			mg_http_serve_dir(c, ev_data, &opts);
     		}
 
