@@ -23,7 +23,7 @@
  ::Description::( notification input here )::
  ::Relevance::( Low ):: 
  ::Reference::( search SQLi,XSS etc... )::
- ::Match::# request\.querystring|request\.form|Response\.Cookies|Request\.Cookies|Session|ReadLine|TextBox|Response|Request\.Form #::
+ ::Match::# request\.querystring|request\.form|Response\.Cookies|Request\.Cookies|Session|ReadLine|TextBox|Response|Request\.Form|HttpGet|HttpPost|HttpDelete|HttpPatch #::
 
  ::Title::( Possible SQL injection )::	
  ::Description::( notification possible SQL injection )::
