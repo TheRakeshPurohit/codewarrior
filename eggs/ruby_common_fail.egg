@@ -37,3 +37,8 @@
  ::Reference::( http://guides.rubyonrails.org/security.html )::
  ::Match::# params(.*)\.constantize #::
  
+ ::Title::( Detect insecure communication )::   
+ ::Description::( Communication without TLS )::
+ ::Relevance::( High ):: 
+ ::Reference::( Insecure communication  )::
+ ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::

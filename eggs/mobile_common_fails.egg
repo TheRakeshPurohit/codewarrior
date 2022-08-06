@@ -53,7 +53,7 @@
  ::Description::( Communication without TLS )::
  ::Relevance::( High ):: 
  ::Reference::( Insecure communication  )::
- ::Match::#ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv#::
+ ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::
 
  ::Title::( Check SDK version )::	
  ::Description::( Detect version of SDK )::

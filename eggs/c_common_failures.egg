@@ -25,8 +25,14 @@
  ::Reference::( http://en.wikipedia.org/wiki/Uncontrolled_format_string )::      
  ::Match::# fprintf.*(stdout,[a-zA-Z0-9]*$ ) #::      
       
- ::Title::( Possible Stack Overflow strcpy() function )::        
- ::Description::( when you use strcpy() function you need some attention )::      
- ::Relevance::( High )::       
+ ::Title::( Possible Stack Overflow  )::        
+ ::Description::( Detect function that need some attention )::      
+ ::Relevance::( Low )::       
  ::Reference::( https://www.owasp.org/index.php/Testing_for_Stack_Overflow )::      
- ::Match::# strcpy( #::      
+ ::Match::# strcpy|strcat|sprintf|memcpy|movmem #::
+       
+ ::Title::( Detect insecure communication )::   
+ ::Description::( Communication without TLS )::
+ ::Relevance::( High ):: 
+ ::Reference::( Insecure communication  )::
+ ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::

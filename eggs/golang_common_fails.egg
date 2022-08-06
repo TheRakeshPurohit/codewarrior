@@ -66,3 +66,9 @@
  ::Relevance::( Low )::   
  ::Reference::( Sockes finds)::  
  ::Match::#\Whttp\.(ListenAndServe|Handle|HandleFunc|Server)\W.{0,99}$|sock|send|recv|stream#::  
+
+ ::Title::( Detect insecure communication )::   
+ ::Description::( Communication without TLS )::
+ ::Relevance::( High ):: 
+ ::Reference::( Insecure communication  )::
+ ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::

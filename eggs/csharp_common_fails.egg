@@ -17,7 +17,37 @@
  ::Description::( notification at possible XSS )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
- ::Match::# response\.write|Response\.Write #::
+ ::Match::# response\.write|Response\.Write|[Rr]esponse.[Ww]rite[[:space:]]*\( #::
+
+ ::Title::( Possible XSS 2 )::    
+ ::Description::( notification at possible XSS )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
+ ::Match::# <%[[:space:]]*=[[:space:]]*[\_a-zA-Z0-9][^\%]+ #::
+
+ ::Title::( Possible XSS 3 )::    
+ ::Description::( notification at possible XSS )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
+ ::Match::# innerText[[:space:]]*=[^\;]+\+ #::
+
+ ::Title::( Possible XSS 4 )::    
+ ::Description::( notification at possible XSS )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
+ ::Match::# innerHTML[[:space:]]*=[^\;]+\+ #::
+
+ ::Title::( Possible XSS 5 )::    
+ ::Description::( notification at possible XSS )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
+ ::Match::# [Vv]alidate[Rr]equest=[\'\"]?false[\'\"]? #::
+
+ ::Title::( Possible XSS 6 )::    
+ ::Description::( notification at possible XSS )::
+ ::Relevance::( High ):: 
+ ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
+ ::Match::# <%=[[:space:]]*[Rr]equest\.[Qq]uery[Ss]tring\[.*%> #::
 
  ::Title::( SHow inputs like get/post/cookies etc... )::	
  ::Description::( notification input here )::
@@ -29,7 +59,7 @@
  ::Description::( notification possible SQL injection )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::
- ::Match::# SqlDataAdapter|SqlCommand|ExecuteNonQuery|ConnectionState|SqlConnection|ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT #::
+ ::Match::# SqlDataAdapter|SqlCommand|ExecuteNonQuery|ConnectionState|SqlConnection|ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT|sp_executesql #::
 
  ::Title::( Logic fail )::	
  ::Description::(Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake. )::
@@ -41,23 +71,41 @@
  ::Description::( notification possible SQL injection )::
  ::Relevance::( High ):: 
  ::Reference::( http://stackoverflow.com/questions/9343665/are-buffer-overflow-exploits-possible-in-c )::
- ::Match::# unsafe #::
+ ::Match::# unsafe|strcpy|strcat #::
 
  ::Title::( Dangerous permissions)::	
  ::Description::( notification possible permission problem)::
  ::Relevance::( Medium ):: 
  ::Reference::( http://stackoverflow.com/questions/9343665/are-buffer-overflow-exploits-possible-in-c )::
- ::Match::# UnmanagedCode|MemberAccess|SerializationFormatter|SkipVerification|ControlEvidence|ControlPolicy|ControlAppDomain|ControlDomainPolicy|SuppressUnmanaged|CodeSecurityAttribute #::
+ ::Match::# UnmanagedCode|MemberAccess|SerializationFormatter|SkipVerification|ControlEvidence|ControlPolicy|ControlAppDomain|ControlDomainPolicy|SuppressUnmanaged|CodeSecurityAttribute|SecurityPermission #::
 
  ::Title::( weak encryption )::	
  ::Description::( weak encryption )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Guide_to_Cryptography )::
- ::Match::# Encoding|ToBase64|encode64|MD4|md4|md5|MD5|SHA1|sha1|sha-1|SHA-1|SHA-0|sha-0|sha0|DES|des\.|http: #::
+ ::Match::# ToBase64|encode64|MD4|md4|md5|MD5|SHA1|sha1|sha-1|SHA-1|SHA-0|sha-0|sha0|DES|des\.|RNGCryptoServiceProvider #::
 
  ::Title::( salt, passwords informations )::	
  ::Description::( salt, passwords, keys hardcoded etc.. )::
  ::Relevance::( Low ):: 
  ::Reference::( https://www.owasp.org/index.php/Guide_to_Cryptography )::
- ::Match::# password|pass|senha|clave|login|key|salt|Salt|hash|kennwort|schlüssel|contraseña|Random|rand|RNG|rng|crypto|Crypto #::
+ ::Match::# password|pass|senha|clave|login|key|salt|Salt|hash|kennwort|schlüssel|contraseña|random|rand|RNG|rng|crypto|Crypto #::
+
+ ::Title::( Insecure deserialization )::    
+ ::Description::( Lack of safe deserialization )::
+ ::Relevance::( high ):: 
+ ::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html )::
+ ::Match::# aspnet:AllowInsecureDeserialization.*true|Serialization|SerializationFormatter|Serializable|SerializeObject|SerializationBinder|JsonSerializer|JsonSerializerSettings|DeserializeObject|ISerializable #::
+
+ ::Title::( Open redirect )::    
+ ::Description::( Lack of validation in redirect resource )::
+ ::Relevance::( high ):: 
+ ::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html )::
+ ::Match::# [Rr]edirect[[:space:]]*\(,*\,[[:space:]]*[Ff][Aa][Ll][Ss][Ee][[:space:]]*\) #::
+
+ ::Title::( Detect insecure communication )::   
+ ::Description::( Communication without TLS )::
+ ::Relevance::( High ):: 
+ ::Reference::( Insecure communication  )::
+ ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::
 

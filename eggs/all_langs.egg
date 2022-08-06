@@ -5,13 +5,31 @@
  ::Description::( Token leak ):: 
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
- ::Match::# ^\s*access_token:\s*[a-zA-Z0-9\.\-\_\!\?\#\&\*\:\;\@\(\)\<\>\%]{18,}\s*$|"AUTH"[,\s]+"[^\n]{5,99}".{0,99}$ #:: 
+ ::Match::# ^\s*access_token:\s*[a-zA-Z0-9\.\-\_\!\?\#\&\*\:\;\@\(\)\<\>\%]{18,}\s*$ #:: 
 
- ::Title::( Token leak 2 ):: 	
+ ::Title::( Token leak 2 )::  
  ::Description::( Token leak ):: 
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
- ::Match::# ^.{0,299}x-access-token.{0,299}$|^[^=\n]{0,199}API_KEY[^\n]{7,199}$|api_token=[0-9a-f]{40}.{0,200}$ #::
+ ::Match::# "AUTH"[,\s]+"[^\n]{5,99}".{0,99}$ #:: 
+
+ ::Title::( Token leak 3 ):: 	
+ ::Description::( Token leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# ^.{0,299}x-access-token.{0,299}$ #::
+
+ ::Title::( Token leak 4 )::    
+ ::Description::( Token leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# api_token=[0-9a-f]{40}.{0,200}$ #::
+
+::Title::( Token leak 5 )::    
+ ::Description::( Token leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# ^[^=\n]{0,199}API_KEY[^\n]{7,199}$ #::
 
  ::Title::( Pub key leak ):: 
  ::Description::( key leak )::
@@ -23,13 +41,19 @@
  ::Description::( AWS key leak ):: 
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
- ::Match::# (^|[^A-Z0-9])(AKIA|ASIA)[A-Z0-9]{16}($|[^A-Z0-9]).{0,99}$|(AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY|AWS_DEFAULT_REGION).{20,199}$ #:: 
+ ::Match::# (^|[^A-Z0-9])(AKIA|ASIA)[A-Z0-9]{16}($|[^A-Z0-9]).{0,99}$ #:: 
 
  ::Title::( AWS key leak 2 ):: 	
  ::Description::( AWS key leak ):: 
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
  ::Match::# (AWSSecretKey|AwsDevSecretKey|SecretKey|ClientSecret|BasicAWSCredentials|clientSecret|AWS_SECRET_KEY|AgentToken).{0,199}$ #:: 
+
+ ::Title::( AWS key leak 3 )::    
+ ::Description::( AWS key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# (AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY|AWS_DEFAULT_REGION).{20,199}$ #:: 
 
  ::Title::( Google key leak):: 	
  ::Description::( Google key leak):: 
@@ -41,7 +65,19 @@
  ::Description::( Amazon key leak ):: 
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
- ::Match::# s3://[^\.].{3,199}$|https://s3-.{3,299}$|["\'][A-Za-z0-9/+=]{40}["\'].{0,99}$ #:: 
+ ::Match::# s3://[^\.].{3,199}$ #:: 
+
+ ::Title::( Amazon leak 2 )::   
+ ::Description::( Amazon key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# https://s3-.{3,299}$ #:: 
+
+ ::Title::( Amazon leak 3 )::   
+ ::Description::( Amazon key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# s3://[^\.].{3,199}$ #:: 
 
  ::Title::( Azure key leak ):: 	
  ::Description::( Azure key leak ):: 
@@ -53,7 +89,19 @@
  ::Description::( azure key leak ):: 
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
- ::Match::# client_secret[^\n]+\W[a-zA-Z0-9\+\-\_\/]{32}\W.{0,199}$|[Aa]zure[Ss]torage[Kk]ey.*[Aa]ccount[Kk]ey.{0,499}$|tenant_id[^\n]+[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}.{0,199}$ #:: 
+ ::Match::# client_secret[^\n]+\W[a-zA-Z0-9\+\-\_\/]{32}\W.{0,199}$ #:: 
+
+::Title::( azure key leak 3 )::     
+ ::Description::( azure key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# [Aa]zure[Ss]torage[Kk]ey.*[Aa]ccount[Kk]ey.{0,499}$ #:: 
+
+ ::Title::( azure key leak 4 )::    
+ ::Description::( azure key leak ):: 
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
+ ::Match::# tenant_id[^\n]+[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}.{0,199}$ #:: 
 
  ::Title::( Key MySQL):: 
  ::Description::( weak encription )::
@@ -77,5 +125,190 @@
  ::Description::( Information leak )::
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
- ::Match::# ^[.a-zA-Z0-9_-]+(:[.a-zA-Z0-9_-]+){4}$|\W[0-9a-zA-Z]{32}:[0-9a-zA-Z]{2,20}\W.{0,99} $#::
+ ::Match::# ^[.a-zA-Z0-9_-]+(:[.a-zA-Z0-9_-]+){4}$ #::
+ 
+ ::Title::( Postgres leak 2 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# \W[0-9a-zA-Z]{32}:[0-9a-zA-Z]{2,20}\W.{0,99}$ #::
+ 
+ ::Title::( Secret 01 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Aa][Ww][Ss][_\-\.]?[Ss][Ee][Cc][Rr][Ee][Tt][_\-\.]?[Kk][Ee][Yy][\'\"]?[[:space:]]*[=:].........+ #::
+ 
+ ::Title::( Secret 02 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Aa][Ww][Ss][_\-\.]?[Kk][Ee][Yy][\'\"]?[[:space:]]*[=:]........+$ #::
+ 
+ ::Title::( Secret 03 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# A[SK]IA[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]+ #::
+ 
+ ::Title::( Secret 04 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Aa][Cc][Cc][Ee][Ss][Ss][_\.\-]?[Kk][Ee][Yy]([_\-\.]?[Ii][Dd])?[\'\"]?[[:space:]]*[=:][[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-][a-zA-Z0-9+=_\-]+[\'\" ] #::
+ 
+ ::Title::( Secret 05 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Aa][Cc][Cc][Ee][Ss][Ss][_\.\-]?[Kk][Ee][Yy]([_\-\.]?[Ii][Dd])?[\'\"]?[[:space:]]*[=:][[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-]+[a-zA-Z0-9\'\"=_\-]$ #::
+ 
+ ::Title::( Secret 06 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [_\.\-]?[Aa][Pp][Ii][_\.\-]?[Kk][Ee][Yy][\'\"]?[[:space:]]*[=:][[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-][a-zA-Z0-9+=_\-]+[\'\" ] #::
+ 
+ ::Title::( Secret 07 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [_\.\-]?[Aa][Pp][Ii][_\.\-]?[Kk][Ee][Yy][\'\"]?[[:space:]]*[=:][[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-]+[a-zA-Z0-9+=\'\"_\-]$ #::
+ 
+ ::Title::( Secret 08 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [_\.\-][Oo][Aa][Uu][Tt][Hh][[:space:]]*= #::
+ 
+ ::Title::( Secret 09 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Ss][Ee][Cc][Rr][Ee][Tt][_\-\.]?([Kk][Ee][Yy])?[\'\"]?[[:space:]]*[=:][[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-][a-zA-Z0-9+=_\-]+[\'\" ] #::
 
+ ::Title::( Secret 10 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Ss][Ee][Cc][Rr][Ee][Tt][_\-\.]?([Kk][Ee][Yy])?[\'\"]?[[:space:]]*[=:][[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-]+[a-zA-Z0-9\'\"+=_\-]$ #::
+
+ ::Title::( Secret 11 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [_\&\.\-]?[Pp][Aa][Ss][Ss][Ww][Oo]?[Rr]?[Dd][[:space:]]*=[[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-][a-zA-Z0-9+=_\-]+[\'\" ]#::
+
+ ::Title::( Secret 12 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [_\&\.\-]?[Pp][Aa][Ss][Ss][Ww][Oo]?[Rr]?[Dd][[:space:]]*=[[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-][a-zA-Z0-9+=_\-]+[a-zA-Z0-9/+=\'\"_\-]$ #::
+
+ ::Title::( Secret 13 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# -----BEGIN( RSA| OPENSSH| DSA| EC| PGP| ENCRYPTED)? PRIVATE KEY( BLOCK)?----- #::
+
+ ::Title::( Secret 14 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Pp][Rr][Ii][Vv]([Aa][Tt][Ee])?[_\.\-]?[Kk][Ee][Yy][\'\"]?[[:space:]]*[=:][[:space:]]*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-][a-zA-Z0-9+=_\-]+ #::
+
+ ::Title::( Secret 15 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# PuTTY-User-Key-File-2\: #::
+
+ ::Title::( Secret 16 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# SG\.......................\............................................ #::
+
+ ::Title::( Secret 17 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# SessionCryptoPassphrase(File)?[[:space:]] #::
+
+ ::Title::( Secret 18 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# sk_live_.* #::
+
+ ::Title::( Secret 19 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# xox([pbrcseoa]|a-2|e-1)-[0-9][0-9][0-9][0-9][0-9][0-9]+-[0-9][0-9][0-9][0-9][0-9][0-9]+-([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])+ #::
+
+ ::Title::( Secret 20 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Gg][Rr][Aa][Nn][Tt].*[Ii][Dd][Ee][Nn][Tt][Ii][Ff][Ii][Ee][Dd][[:space:]]+[Bb][Yy].* #::
+
+ ::Title::( Secret 21 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Ii][Nn][Ss][Ee][Rr][Tt][[:space:]]+[Ii][Nn][Tt][Oo].*'[0-9a-fA-F]{32}'.* #::
+
+ ::Title::( Secret 22 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Ii][Nn][Ss][Ee][rR][Tt][[:space:]]+[Ii][Nn][Tt][Oo].*'[0-9a-fA-F]{40}'.* #::
+
+ ::Title::( Secret 23 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# PHP_AUTH_(USER|PW).*[\!\=][\!\=].+ #::
+
+ ::Title::( Secret 24 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# [Cc]onnection[Ss]tring.*([Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|[Pp][Ww][Dd])[[:space:]]*=.* #::
+
+ ::Title::( Secret 25 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# mysqldump[[:space:]]+.*--password[= ].+ #::
+
+ ::Title::( Secret 26 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# curl[[:space:]]+.*-?-([UEu](ser)?[^:]+:[^ ]+|tlspassword .*|pass .*|cert *[^: ]+:[^ ]+) #::
+
+ ::Title::( Secret 27 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# curl_setopt[[:space:]]*\(.*CURLOPT_USERPWD.*\) #::
+
+ ::Title::( Secret 28 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# ([Aa][Uu][Tt][Hh].*[\'\"]|Authorization: )[Bb]asic[[:space:]]+([a-zA-Z0-9/\+\.\-][a-zA-Z0-9/\+\.\-][a-zA-Z0-9/\+\.=\-][a-zA-Z0-9/\+\.=\-])+[\'\" ] #::
+
+ ::Title::( Secret 29 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# --data-urlencode.*[Pp][Aa][Ss][Ss][Ww][Oo]?[Rr]?[Dd]?=.+ #::
+
+ ::Title::( Secret 30 ):: 
+ ::Description::( Information leak )::
+ ::Relevance::( Low ):: 
+ ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
+ ::Match::# ([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/])([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/])([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/])+([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/\=][A-Za-z0-9\+\/\=]) #::

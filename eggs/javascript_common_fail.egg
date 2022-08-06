@@ -31,3 +31,9 @@
  ::Relevance::( Low ):: 
  ::Reference::( https://cwe.mitre.org/data/definitions/359.html ):: 
  ::Match::# navigator.geolocation.getCurrentPosition #:: 
+
+ ::Title::( Detect insecure communication )::   
+ ::Description::( Communication without TLS )::
+ ::Relevance::( High ):: 
+ ::Reference::( Insecure communication  )::
+ ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::

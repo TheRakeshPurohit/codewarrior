@@ -42,3 +42,9 @@
  ::Relevance::( Warning ):: 
  ::Reference::( https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning )::
  ::Match::#kTSKPinnedDomains|TSKPinningValidator|TrustKit|pinCertificates|validateCertificateChain|SecTrustCopyResult|setupCertificatePinner|SecTrustSetAnchorCertificates|CertificatePinner#::
+
+ ::Title::( Detect insecure communication )::   
+ ::Description::( Communication without TLS )::
+ ::Relevance::( High ):: 
+ ::Reference::( Insecure communication  )::
+ ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::
