@@ -18,13 +18,15 @@ bool allowlist_ip(char * addr)
 
 	char line[128];
 	memset(line,0,127);
+	size_t len=strlen(addr);
 
 	while( fgets(line,sizeof line,arq) && at_list==false )
 	{
+
 		line[strlen(line)-1]='\0';
 
 // the allowlist can accept regex: 127.0.0.* ...
-		if(match_test(addr,line)==true)
+		if(match_test(addr,len,line)==true)
 			at_list=true;
 	}
 

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include "slre/slre.h"
 #include "BSD/strsec.h"
 #include <stdlib.h>
 #include <unistd.h>
@@ -9,6 +8,7 @@
 #include <limits.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <pcre.h>
 
 enum {
   TITLE,REFERENCE,DESCRIPTION,RELEVANCE,MATCH,PATH,LINES,LANG, END
@@ -19,7 +19,7 @@ char *rm_extra_slash(char *str);
 int parse_viewcode(char** p, char** lex);
 char  *ClearStr(char* charBuffer,int num);
 int parse_eggs(char** p,char** lex);
-bool match_test(const char *string,const char *expression);
+bool match_test(const char *string,size_t string_len,const char *expression);
 char *deadspace(char *str);
 char *get_extension(char *extension);
 char *get_relevance_icon(char *relevance);

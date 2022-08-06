@@ -130,7 +130,8 @@ void *Search_for(char * NameFile,char *regex)
 
 	while( fgets(line,sizeof line,arq) )  
 	{
-		if(match_test(line,regex)==true)
+		size_t len=strlen(line);
+		if(match_test(line,len,regex)==true)
 		{
 			
 		 	LineSize+=3128+512;
@@ -330,10 +331,10 @@ void warrior_start (const char * dir_name, char * extension, char * config,  str
 		}
 
 		d_name = entry->d_name;
-
+		size_t d_name_len=strlen(d_name);
 	
 // TODO* i need improve that extension check
-		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,extension)==true)
+		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,d_name_len,extension)==true)
 		{
 			snprintf(tmp_path,2048,"%s/%s",dir_name,d_name);
 			bool result=fly_to_analyse(tmp_path, config, extension, c);
@@ -532,10 +533,10 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 		}
 
 		d_name = entry->d_name;
-
+		size_t d_name_len=strlen(d_name);
 	
 // TODO* i need improve that extension check
-		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,extension)==true)
+		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,d_name_len,extension)==true)
 		{
 			snprintf(tmp_path,2048,"%s/%s",dir_name,d_name);
 			char **argv=(char **)Search_for(tmp_path,sink);
@@ -635,10 +636,11 @@ void warrior_tree (const char * dir_name, char * extension,  struct mg_connectio
 		}
 
 		d_name = entry->d_name;
+		size_t d_name_len=strlen(d_name);
 
 	
 // TODO* i need improve that extension check
-		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,extension)==true)
+		if(d_name[0]!='.' && strncmp(d_name,"..",2)>0 && match_test(d_name,d_name_len,extension)==true)
 		{
 			snprintf(tmp_path,2048,"%s/%s",dir_name,d_name);
 			char tree_element[4304];			

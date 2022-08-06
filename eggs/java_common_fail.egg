@@ -23,7 +23,7 @@
  ::Description::( notification at possible XSS )::
  ::Relevance::( High ):: 
  ::Reference::( https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 )::
- ::Match::# response.sendRedirect[[:space:]]*\(.*[Rr]equest.*\) #::
+ ::Match::# response.sendRedirect[:space:]*\(.*[Rr]equest.*\) #::
 
  ::Title::( Possible XSS 3 )::    
  ::Description::( notification at possible XSS )::
@@ -65,28 +65,28 @@
  ::Description::( Detection of insecure random )::
  ::Relevance::( Low ):: 
  ::Reference::( https://owasp.org/www-community/vulnerabilities/Insecure_Randomness )::
- ::Match::# new[[:space:]]*(Secure)?Random[[:space:]]*\(|java.util.Random #::
+ ::Match::# new[:space:]*(Secure)?Random[:space:]*\(|java.util.Random #::
  
  ::Title::( Open redirect )::    
  ::Description::( Lack of validation in redirect resource )::
- ::Relevance::( high ):: 
+ ::Relevance::( High ):: 
  ::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html )::
- ::Match::# response.sendRedirect[[:space:]]*\(.*([Rr]eq(uest)?|\.[Gg]et[Pp]aram).*\) #::
+ ::Match::# response.sendRedirect[:space:]*\(.*([Rr]eq(uest)?|\.[Gg]et[Pp]aram).*\) #::
 
  ::Title::( Open redirect 2)::    
  ::Description::( Lack of validation in redirect resource )::
- ::Relevance::( high ):: 
+ ::Relevance::( High ):: 
  ::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html )::
- ::Match::# response.sendRedirect[[:space:]]*\(.*[Rr]equest.*\) #::
+ ::Match::# response.sendRedirect[:space:]*\(.*[Rr]equest.*\) #::
 
  ::Title::( Open redirect 3)::    
  ::Description::( Lack of validation in redirect resource )::
- ::Relevance::( high ):: 
+ ::Relevance::( High ):: 
  ::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html )::
- ::Match::# response.sendRedirect[[:space:]]*\(.*(Request|request).*\) #::
+ ::Match::# response.sendRedirect[:space:]*\(.*(Request|request).*\) #::
 
  ::Title::( Spring route)::    
  ::Description::( just a simple route http )::
- ::Relevance::( Alert ):: 
+ ::Relevance::( Low ):: 
  ::Reference::( spring framework route definition )::
  ::Match::# \@RequestMapping #::

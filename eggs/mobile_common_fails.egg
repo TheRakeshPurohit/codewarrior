@@ -3,25 +3,25 @@
 
  ::Title::( Use of anti-jailbreak ):: 	
  ::Description::( Jailbreak detection enable sink ):: 
- ::Relevance::( Warning ):: 
+ ::Relevance::( Low ):: 
  ::Reference::( Detect root resource ):: 
  ::Match::#JailbreakDetection|isJailbroken|isRooted|Root\.exec|cydia#:: 
 
  ::Title::( Cert pinning detect):: 	
  ::Description::( detect cert pinning resource ):: 
- ::Relevance::( Warning ):: 
+ ::Relevance::( Low ):: 
  ::Reference::( Cert pinning resource ):: 
  ::Match::#badCertificateCallback|TrustedCertificatesByte|SecurityContext|PiningSslData|SslPinningPlugin#:: 
 
  ::Title::( Sinks of obfuscation )::	
  ::Description::( notification  )::
- ::Relevance::( Warning ):: 
+ ::Relevance::( Low ):: 
  ::Reference::( sink of resource anti tampering )::
  ::Match::# proguard|obfuscate|minifyEnabled|promon|arxan|appdome #::
 
  ::Title::( SQL sink )::	
  ::Description::( SQL sink )::
- ::Relevance::( Warning ):: 
+ ::Relevance::( Low ):: 
  ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::
  ::Match::#DROP|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT|sqlite|oracle#::
 
@@ -45,7 +45,7 @@
  
  ::Title::( Secure storage )::	
  ::Description::( Sink of safe storage )::
- ::Relevance::( Warning ):: 
+ ::Relevance::( Low ):: 
  ::Reference::( safe storage  )::
  ::Match::#flutter_secure_storage|encryptedShared|FlutterSecureStorage#::
 
@@ -57,7 +57,7 @@
 
  ::Title::( Check SDK version )::	
  ::Description::( Detect version of SDK )::
- ::Relevance::( warning ):: 
+ ::Relevance::( Low ):: 
  ::Reference::( information disclosure  )::
  ::Match::#minSdkVersion#::
 

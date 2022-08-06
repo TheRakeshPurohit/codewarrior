@@ -19,7 +19,7 @@ https://youtu.be/tZkllJ9mieU
 You don't need to install it, but it must compile and run. 
 So it has full support for Linux and *BSD.
 
-So to run, you need to install OpenSSL-dev or OpenSSL-devel package
+So to run, you need to install OpenSSL-dev, libpcre3-dev or OpenSSL-devel,libpcre3-devel package
 ```
 $ git clone https://github.com/CoolerVoid/codewarrior/; cd CodeWarrior
 $ make

@@ -605,19 +605,28 @@ yy86:
     }
 }
 
-// regex test 
-bool match_test(const char *string,const char *expression)
-{
 
-	if (slre_match(expression, string, strlen(string), 0, 0, 0) > 0) 
-  		return true;
-	else 
+bool match_test(const char *string,size_t string_len,const char *expression)
+{
+	const char *err;
+	int errofs = 0, offset = 0;
+	int ovector[1024];
+
+	pcre *re = pcre_compile(expression, 0, &err, &errofs, NULL);
+
+	if (re == NULL) 
+	{
+		DEBUG(" REGEX compilation failed : %s\n",expression);
 		return false;
+	}
+	const int rc = pcre_exec(re, NULL, string, string_len, offset, 0, ovector, 1024);
+	pcre_free(re);
+
+	return (rc > 0)?true:false;
 }
 
 
-
-
+// DFA for parser
 int parse_viewcode(char** p, char** lex)
 {
     char* marker;

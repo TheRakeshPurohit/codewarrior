@@ -7,7 +7,7 @@
  ::Reference::( search race conditions, file manipulation etc... )::   
  ::Match::# OpenTextFile|WriteLine|GetFileName|CreateTextFile|Mkdir|WriteFile|Chmod|OpenFile|FileMode|\Wos\.)\W0[0-7][0-7](1|2|3|5|6|7)\W.{0,99}$#::   
  
- ::Title::( SHow permissions )::      
+ ::Title::( Set ermissions action )::      
  ::Description::( notification input here )::  
  ::Relevance::( Low )::   
  ::Reference::( search permissions pitfalls and finds )::  
@@ -31,9 +31,9 @@
  ::Reference::( search SQLi,XSS etc... )::  
  ::Match::# request\.querystring|request\.form|Response\.Cookies|Request\.Cookies|Session #::  
   
- ::Title::( Possible SQL injection )::    
- ::Description::( notification possible SQL injection )::  
- ::Relevance::( High )::   
+ ::Title::( Sinks of DBMS communication 1 )::    
+ ::Description::( notification DBMS communication )::  
+ ::Relevance::( Low )::   
  ::Reference::( https://www.owasp.org/index.php/SQL_Injection )::  
  ::Match::# ADODB\.recordset|ADODB\.Connection|ADODB\.command|WHERE|FROM|SELECT|UPDATE|UNION|DELETE|INSERT| #::  
   
@@ -72,3 +72,69 @@
  ::Relevance::( High ):: 
  ::Reference::( Insecure communication  )::
  ::Match::# ftp:|http:|smtp:|amqp:|tcp:|udp:|raw sock|socket|send|recv|ws: #::
+
+ ::Title::( Format string sink 01 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.WriteString\(.*URL\.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 02 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.Write\(.*URL.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 03 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.Println\(.*URL.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 04 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.Raw\(.*URL.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 05 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.Query\(.*URL.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 06 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.QueryContext\(.*URL.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 07 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.QueryRow\(.*URL.Query\(\).*\)#::  
+
+ ::Title::( Format string sink 08 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.QueryRowContext\(.*URL.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 09 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.Exec\(.*URL.Query\(\).*\) #::  
+  
+ ::Title::( Format string sink 10 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.ExecContext\(.*URL.Query\(\).*\) #::  
+
+ ::Title::( Format string sink 11 )::      
+ ::Description::( notification input here )::  
+ ::Relevance::( Low )::   
+ ::Reference::( search SQLi,XSS etc... )::  
+ ::Match::# \.Open\(.*URL.Query\(\).*\) #::  

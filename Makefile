@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Wformat-security
-DFLAGS=-DMG_ENABLE_SSL -DMG_ENABLE_OPENSSL=1 lib/libinjection/libinjection_xss.c lib/libinjection/libinjection_html5.c lib/slre/slre.c lib/libmongoose/mongoose.c lib/sha256/sha256.c lib/BSD/strsec.c lib/frozen/frozen.c 
+DFLAGS=-DMG_ENABLE_SSL -DMG_ENABLE_OPENSSL=1 lib/libinjection/libinjection_xss.c lib/libinjection/libinjection_html5.c -lpcre lib/libmongoose/mongoose.c lib/sha256/sha256.c lib/BSD/strsec.c lib/frozen/frozen.c 
 HARDENING= -fstack-protector-all -pie -fPIE -ftrapv 
 DIR=src/
 DIR_HEADERS=src/headers/
@@ -11,7 +11,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
  LDFLAGS=-lpthread -lcrypto -lssl -lm 
 else
- LDFLAGS=-Wl,-z,relro,-z,now,-z,noexecstack -z,noexecheap -lpthread -lm -lcrypto -lssl
+ LDFLAGS=-Wl,-z,relro,-z,now,-z,noexecstack -z,noexecheap -lpthread -lm -lcrypto -lssl -lpcre
 endif
 
 
