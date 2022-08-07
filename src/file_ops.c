@@ -553,7 +553,7 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 				memset(report,0,sizereport-1);		
 
 	
-				snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Sink:</b> %s<br> <b>Lines:</b> %s<br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br></div><pre type=\"syntaxhighlighter\" class=\"brush: %s;\" >%s</pre><br>",sink_clean,result[1],path_clean,language,result[1],path_clean,language,result[0]);
+				snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Sink:</b> %s<br> <b>Lines:</b> %s<br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br></div><pre> <code class=\"language-%s\">%s</code></pre><br>",sink_clean,result[1],path_clean,language,result[1],path_clean,language,result[0]);
 // send result to web socket
 				mg_ws_send(c, report, strlen(report), WEBSOCKET_OP_TEXT);
 				memset(tmp_path,0,2047);
