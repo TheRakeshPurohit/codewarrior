@@ -1,8 +1,8 @@
 # codewarrior
 
-Codewarrior an tool for static code analysis. 
+Codewarrior is a tool for static code analysis. 
 ![Alt text](https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/frogcode.png)
-The tool uses HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
+The tool uses Moongose HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
 
 # Video demo 
 https://youtu.be/tZkllJ9mieU
@@ -27,7 +27,7 @@ Get content of repository
 $ git clone https://github.com/CoolerVoid/codewarrior/; 
 Enter and compile the context
 $ cd CodeWarrior
-$ make
+$ make clean; make
 ```
 For example, if you need to create your cert and load, remember, following production context, **I don`t recommend self-signed cert.**
 ```
