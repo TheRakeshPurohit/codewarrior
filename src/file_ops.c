@@ -22,11 +22,12 @@ char *file_content(const char * filename)
 
     	if (!fp)
         	return NULL;
+
     	fseek(fp, 0L, SEEK_END);
     	pos = ftell(fp);
 
     	if (pos < 0) 
-	{
+		{
         	fclose(fp);
         	return NULL;
     	}
@@ -36,15 +37,15 @@ char *file_content(const char * filename)
     	file_contents = xmallocarray((file_size + 1),sizeof(char));
 
     	if (!file_contents) 
-	{
+		{
         	fclose(fp);
         	return NULL;
     	}
 
     	if (fread(file_contents, file_size, 1, fp) < 1) 
-	{
-        	if (ferror(fp)) 
 		{
+        	if (ferror(fp)) 
+			{
             		fclose(fp);
             		XFREE(file_contents);
             		return NULL;
@@ -52,9 +53,9 @@ char *file_content(const char * filename)
     	}
 
    	fclose(fp);
-    	file_contents[file_size] = '\0';
+    file_contents[file_size] = '\0';
 
-    	return file_contents;
+    return file_contents;
 }
 
 //read lines of file
@@ -215,7 +216,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 
 			case REFERENCE:
 
-					sz = p - last - 1;
+					sz = p - last - 2;
 					memset(reference2,0,511);
 					snprintf(reference2,512,"%.*s", sz, last);
 					reference=strdup(ClearStr(reference2,14));
@@ -233,7 +234,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 			case MATCH:
 					sz = p - last;
 					memset(match2,0,1023);
-					snprintf(match2,1024,"%.*s", sz, last);
+					snprintf(match2,1023,"%.*s", sz, last);
 					match=strdup(ClearStr(match2,10));
 
 					char **arg=(char **)Search_for(path,match);
@@ -250,11 +251,11 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 
 // construct the report 
 						int sizereport=strlen(title_clean)+strlen(result2[1])+strlen(description_clean)+strlen(relevance_clean);
-						sizereport+=(strlen(reference_clean)*2)+strlen(match_clean)+strlen(result2[0])+(strlen(path_clean)*2)+strlen(config)+(strlen(language)*2)+473;
+						sizereport+=(strlen(reference_clean)*2)+strlen(match_clean)+strlen(result2[0])+(strlen(path_clean)*2)+strlen(config)+(strlen(language)*2)+4024;
 						sizereport+=strlen(icon_alert);
 						report=xmallocarray(sizereport,sizeof(char));
 						memset(report,0,sizereport-1);
-						snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Title:</b> %s<br> <b>Description:</b> %s<br> <b>Relevance:</b> %s<br> <b>Reference:</b> <a class=\"fancybox fancybox.iframe\" href=\"%s\">%s</a><br><b>Match:</b> %s <br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br><b>Module:</b> %s <img src=\"img/%s\" width=\"80\" height=\"60\" align=\"right\" ></div><pre type=\"syntaxhighlighter\" class=\"brush: %s;\" >%s</pre><br>",title_clean,description_clean,relevance_clean,reference_clean,reference_clean,match_clean,path_clean,language,result2[1],path_clean,config,icon_alert,language,result2[0]);
+						snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Title:</b> %s<br> <b>Description:</b> %s<br> <b>Relevance:</b> %s<br> <b>Reference:</b> <a class=\"fancybox fancybox.iframe\" href=\"%s\">%s</a><br><b>Match:</b> %s <br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br><b>Module:</b> %s <img src=\"img/%s\" width=\"80\" height=\"60\" align=\"right\" ></div><pre> <code class=\"language-%s\">%s</code></pre><br>",title_clean,description_clean,relevance_clean,reference_clean,reference_clean,match_clean,path_clean,language,result2[1],path_clean,config,icon_alert,language,result2[0]);
 
 
 	
@@ -280,7 +281,8 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 			case END:
 				result=1;	
 				break;
-    		}
+
+    	}
 	
 	
 	}
@@ -354,18 +356,17 @@ void warrior_start (const char * dir_name, char * extension, char * config,  str
 		}
 
 
-	        if (entry->d_type & DT_DIR) 
+	    if (entry->d_type & DT_DIR) 
 		{
 
             
-	            if (strncmp (d_name, "..",2) > 0 && d_name[0]!='.') 
+	        if (strncmp (d_name, "..",2) > 0 && d_name[0]!='.') 
 		    {
-			char path[2048];
+				char path[2048];
  
-			snprintf (path, 2048, "%s/%s", dir_name, d_name);
-
-                	warrior_start (path,extension,config,c);
-	            }
+				snprintf (path, 2048, "%s/%s", dir_name, d_name);
+                warrior_start (path,extension,config,c);
+	        }
 		}
 	}
     
@@ -487,7 +488,7 @@ void view_source(struct mg_connection *c, char *pathdirt)
 	char *path_clean=html_entities(path);
 	memset(output,0,len_output-1);
 
-	snprintf(output,len_output,"<b>Path:</b> %s<br><pre type=\"syntaxhighlighter\" class=\"brush: %s; highlight: [%s];\" >%s</pre>",path_clean,lang_clean,lines_clean,code);
+	snprintf(output,len_output,"<b>Path:</b> %s<br><pre class=\"line-numbers\" data-line=\"%s\"> <code class=\"language-%s\">%s</code></pre>",path_clean,lines_clean,lang_clean,code);
 
 // send source code to viewcode.html
 	mg_ws_send(c,  output, len_output, WEBSOCKET_OP_TEXT);
@@ -569,21 +570,19 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 		}
 
 
-	        if (entry->d_type & DT_DIR) 
+	    if (entry->d_type & DT_DIR) 
 		{
 
             
-	            if (strncmp (d_name, "..",2)>0 && d_name[0]!= '.') 
+	        if (strncmp (d_name, "..",2)>0 && d_name[0]!= '.') 
 		    {
-			char path[2048];
+				char path[2048];
  
-			snprintf (path, 2048, "%s/%s", dir_name, d_name);
-
-                	warrior_sink (path,extension,sink,c);
-	         }
-
+				snprintf (path, 2048, "%s/%s", dir_name, d_name);
+                warrior_sink (path,extension,sink,c);
+	        }
 	         
-	}
+		}
     }
 
     if(closedir(d)) 
@@ -658,15 +657,14 @@ void warrior_tree (const char * dir_name, char * extension,  struct mg_connectio
 		{
 
             
-	            if (strncmp (d_name, "..",2)>0 && d_name[0]!='.') 
+	        if (strncmp (d_name, "..",2)>0 && d_name[0]!='.') 
 		    {
-			char path[2048];
+				char path[2048];
  
-			snprintf (path, 2048, "%s/%s", dir_name, d_name);
-
-                	warrior_tree (path,extension,c);
+				snprintf (path, 2048, "%s/%s", dir_name, d_name);
+                warrior_tree (path,extension,c);
 	         }
-	}
+		}
     }
 
     if(closedir(d)) 

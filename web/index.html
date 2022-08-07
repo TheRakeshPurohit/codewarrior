@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
+       <link href="css/prism.css" rel="stylesheet" /> 
 	<link rel="icon" 
       type="image/png" 
       href="img/ninja2.jpg">
@@ -11,16 +12,7 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
      <link href="./css/mosca.css" rel="stylesheet">
 
-<script type="text/javascript" src="syntax/media/js/shCore.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushXml.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushCpp.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushPhp.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushRuby.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushPython.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushDelphi.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushJava.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushJScript.js"></script>
-<script type="text/javascript" src="syntax/media/js/shBrushBash.js"></script>
+
 <link type="text/css" rel="Stylesheet" href="syntax/media/css/shThemeEmacs.css">
 <link type="text/css" rel="Stylesheet" href="syntax/media/css/shCore.css">
 	<!-- Add fancyBox main JS and CSS files -->
@@ -33,9 +25,12 @@
 		<script type="text/javascript" src="source/jquery.fancybox.js?v=2.1.5"></script>
 		<link rel="stylesheet" type="text/css" href="source/jquery.fancybox.css?v=2.1.5" media="screen" />
 
+
+     <script src="js/prism.js"></script> 
+
+
 	<script type="text/javascript">
 		$(document).ready(function() {
-
 			$('.fancybox').fancybox();
 	});
 	</script>
@@ -45,33 +40,34 @@
 
 <script language="javascript" type="text/javascript">
 
+
 function sleepFor( sleepDuration ){
     var now = new Date().getTime();
     while(new Date().getTime() < now + sleepDuration){ } 
 }
 
 function init(){
-  var ws = new WebSocket('wss://127.0.0.1:1345/websocket');
-  ws.onopen = function(evt) { onload(evt) };
 
+  var ws = new WebSocket('wss://127.0.0.1:1345/websocket');
+  ws.onopen = function(evt) { onload(evt);  Prism.highlightAll(); };
+    
   ws.onmessage = function(ev) {	
     sleepFor(150);
+     Prism.highlightAll();
     document.getElementById('loading').innerHTML = "";
     var div = document.createElement('div');
     div.innerHTML = ev.data; 
     document.getElementById('messages').appendChild(div);
-    SyntaxHighlighter.highlight();
 
 
   }
 
   window.onload = function() {
     document.getElementById('start').onclick = function(ev) {
-
-
+   Prism.highlightAll();
         document.getElementById('messages').innerHTML = "";
         document.getElementById('loading').innerHTML = "";
-
+  
 	ws.onclose = function(){
         //try to reconnect in 5 seconds
          setTimeout(function(){ init(); }, 5000);
@@ -87,12 +83,13 @@ function init(){
       	document.getElementById('messages').innerHTML = "";
       	document.getElementById('loading').innerHTML = '<center><h1>Loading...</h1><img src="img/ninjaloading.gif" width="500" height="400"></center>';
 
+
     };
 
 
     document.getElementById('sinksearch').onclick = function(ev) {
-
-
+    
+   Prism.highlightAll();
         document.getElementById('messages').innerHTML = "";
         document.getElementById('loading').innerHTML = "";
 
@@ -117,7 +114,7 @@ function init(){
 
 
     document.getElementById('tree').onclick = function(ev) {
-
+   Prism.highlightAll();
       	document.getElementById('messages').innerHTML = "";
         document.getElementById('loading').innerHTML = "";
 
@@ -125,7 +122,7 @@ function init(){
         //try to reconnect in 5 seconds
          setTimeout(function(){ init(); }, 5000);
         };
-
+   Prism.highlightAll();
  	var obj = new Object();
    	obj.action = "form4";
    	obj.path = document.getElementById('path').value;
@@ -169,10 +166,9 @@ init();
     <div class="container">
     <div class="row">
 
-  	<div class="col-md-4"><img src="img/warrior.png" alt="warrior"  width="400" height="400" align="right" ></div>
+  	<div class="col-md-4"><img src="img/frogcode.png" alt="warrior"  width="430" height="400" align="right" ></div>
     <div class="col-md-8">
     <div class="jumbotron">
-        <h1 align="center" ><b>Code Warrior</b></h1>
 
           <div class="input-group">
             <span class="input-group-addon">Path:</span>

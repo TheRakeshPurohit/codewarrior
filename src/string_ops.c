@@ -71,7 +71,7 @@ char *deadspace(char *str)
 char  *ClearStr(char* charBuffer,int num) 
 {
 	char *tmp=(charBuffer + num);
-	tmp[strlen(tmp)-2]='\0';
+	tmp[strlen(tmp)-1]='\0';
 
 	return tmp;
 }
@@ -824,7 +824,7 @@ char *get_extension(char *extension)
 		goto etx_end;
 	}
 
-	if(strnstr(extension,"js",extension_size)||strnstr(extension,"html",extension_size))
+	if(strnstr(extension,".js",extension_size)||strnstr(extension,".html",extension_size))
 	{
 		strlcat(language,"javascript",16);
 		goto etx_end;
@@ -839,6 +839,30 @@ char *get_extension(char *extension)
 	if(strnstr(extension,".py",extension_size))
 	{
 		strlcat(language,"python",16);
+		goto etx_end;
+	}
+
+	if(strnstr(extension,".go",extension_size)||strnstr(extension,"golang",extension_size))
+	{
+		strlcat(language,"go",16);
+		goto etx_end;
+	}
+
+	if(strnstr(extension,".kt",extension_size)||strnstr(extension,".kotlin",extension_size))
+	{
+		strlcat(language,"kotlin",16);
+		goto etx_end;
+	}
+
+	if(strnstr(extension,".swift",extension_size))
+	{
+		strlcat(language,"swift",16);
+		goto etx_end;
+	}
+
+	if(strnstr(extension,".cs",extension_size))
+	{
+		strlcat(language,"csharp",16);
 		goto etx_end;
 	}
 

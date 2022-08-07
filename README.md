@@ -1,7 +1,7 @@
 # codewarrior
 
-Codewarrior is just another tool for static code analysis. 
-![Alt text](https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/img1.png)
+Codewarrior an tool for static code analysis. 
+![Alt text](https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/frogcode.png)
 The tool uses HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
 
 # Video demo 
@@ -21,7 +21,12 @@ So it has full support for Linux and *BSD.
 
 So to run, you need to install OpenSSL-dev, libpcre3-dev or OpenSSL-devel,libpcre3-devel package
 ```
-$ git clone https://github.com/CoolerVoid/codewarrior/; cd CodeWarrior
+Install libs
+$ sudo apt install libssl-dev libpcre3-dev make gcc
+Get content of repository
+$ git clone https://github.com/CoolerVoid/codewarrior/; 
+Enter and compile the context
+$ cd CodeWarrior
 $ make
 ```
 For example, if you need to create your cert and load, remember, following production context, **I don`t recommend self-signed cert.**
