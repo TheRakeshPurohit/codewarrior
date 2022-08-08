@@ -5,14 +5,15 @@ Codewarrior is a tool for static code analysis.
 The tool uses Moongose HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
 
 # Video demo 
-https://youtu.be/tZkllJ9mieU
+https://www.youtube.com/watch?v=VmTQSGZ1QaU
 
 # Features
 * Recursive code search by regex pattern and file extension
 * Resources to load and search custom rules
-* HTTPd view with web socket resources and jquery
+* Resources to recursive search in files following sink point by regex rule and file extension
+* HTTPd view with web socket resources and effects with prismjs,fancybox and jquery
 * Syntax highlight by programming language
-* Resource to control IP address access by allow list.
+* Resource to control IP address to access codewarrior by allow list.
 
 # Compile and run
 
@@ -91,9 +92,9 @@ detect existence of file and load him to use Two way TLS.
 * Add ReDOS validator at regex calls
 * Machine learning, so try use bag of Words with KNN
 
-# Author: CoolerVoid
-# Template by Pr0teus https://github.com/Pr0teus
-# contact:coolerlair@gmail.com
+* Author: CoolerVoid
+* Template by Pr0teus https://github.com/Pr0teus
+* contact:coolerlair[at]gmail[dot]com
 
 # Point of attention
 The purpose of this tool is to use in pentest, take attention if you have a proper authorization before to use that. I do not have responsibility for your actions. You can use a hammer to construct a house or destroy it, choose the law path, don't be a bad guy, remember.
