@@ -9,9 +9,10 @@ The tool uses Moongose HTTPd resources with TLS, design pattern follows the KISS
 https://www.youtube.com/watch?v=VmTQSGZ1QaU
 
 # Features
-* Recursive code search by regex pattern and file extension
 * Resources to load and search custom rules
 * Resources to recursive search in files following sink point by regex rule and file extension
+* Options to edit rules on the fly
+* Options to list files by extension
 * HTTPd view with web socket resources and effects with prismjs,fancybox and jquery
 * Syntax highlight by programming language
 * Resource to control IP address to access codewarrior by allow list.
