@@ -5,10 +5,10 @@ Codewarrior is a tool for static code analysis. Codewarrior is a tool to help yo
 <img align="right" width="240" height="220" src="https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/frogcode.png">
 The tool uses Moongose HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
 
-# Video demo 
+## Video demo 
 https://www.youtube.com/watch?v=VmTQSGZ1QaU
 
-# Features
+## Features
 * Resources to load and search custom rules
 * Resources to recursive search in files following sink point by regex rule and file extension
 * Options to edit rules on the fly
@@ -17,7 +17,7 @@ https://www.youtube.com/watch?v=VmTQSGZ1QaU
 * Syntax highlight by programming language
 * Resource to control IP address to access codewarrior by allow list.
 
-# Compile and run
+## Compile and run
 
 You don't need to install it, but it must compile and run. 
 So it has full support for Linux and *BSD.
@@ -48,7 +48,7 @@ $ bin/warrior
 
 Open browser at *https://127.0.0.1:1345/index.html*   (dont write localhost use 127.0.0.1)
 
-# Notes:
+## Notes:
 >* if screen stock, you can refresh the browser with F5 and try again.
 >* If return error, port already in use... close it with this following:
 ``` 
@@ -59,18 +59,18 @@ $ fuser -k -n tcp 1345
 * Use chrome browser to run.
 * Use 127.0.0.1 addr don't use localhost name.
 
-# Test in video demo
+## Test in video demo
 uses repository php-security-pitfalls to find points of attention:  
 *https://github.com/joostvanveen/php-security-pitfalls*
 
 
-# Tricks:
+## Tricks:
 ```
 * All HTML code and web sockets + javascript code you can view at path "web/".
 * If you change the default port, you need to edit port in web/ at web sockets connection.
 ```
 
-# Directories overview:
+## Directories overview:
 ```
 > web/ = local of javascripts and html and css sources
 > src/ = C source code, this code talking with web socket 
@@ -82,18 +82,19 @@ uses repository php-security-pitfalls to find points of attention:
 > cert/ = loads your certificates for TLS here
 ``` 
 
-# Extra, Two way TLS
+## Extra, Two way TLS
 So,you can use TWO way TLS in codewarrior, you need create CA file in cert/ca.pem, so codewarrior
 detect existence of file and load him to use Two way TLS.
 
 
 
-# Future TODO:
+## Future TODO:
 * Add external Automatons for each language case
 * Add load module with dlopen()
 * Add ReDOS validator at regex calls
 * Machine learning, so try use bag of Words with KNN
 
+## Contact
 * Author: CoolerVoid
 * Template by Pr0teus https://github.com/Pr0teus
 * contact:coolerlair[at]gmail[dot]com
