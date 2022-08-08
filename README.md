@@ -1,7 +1,8 @@
 # codewarrior
 
-Codewarrior is a tool for static code analysis. 
-![Alt text](https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/frogcode.png)
+## Etimology
+Codewarrior is a tool for static code analysis. Codewarrior is a tool to help you in manual code review for different programming languages. You can load external rules for each context of programming language to detect sinks of SQL injection, SSTI, XXE, LFI, XSS and soon. Following another point, yes, you can load rules to extract secrets of files following a recursive approach to extract resources, for example, to show tokens of AWS, GCP, and Azure accounts.
+<img align="right" width="240" height="220" src="https://github.com/CoolerVoid/codewarrior/blob/master/doc/img/frogcode.png">
 The tool uses Moongose HTTPd resources with TLS, design pattern follows the KISS principle.(https://en.wikipedia.org/wiki/KISS_principle)
 
 # Video demo 
