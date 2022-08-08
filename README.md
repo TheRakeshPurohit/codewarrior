@@ -13,6 +13,7 @@ https://www.youtube.com/watch?v=VmTQSGZ1QaU
 * Resources to recursive search in files following sink point by regex rule and file extension
 * Options to edit rules on the fly
 * Options to list files by extension
+* [**Rules to extract credentials (Azure, AWS, GCP, twilio and soon**)](https://github.com/CoolerVoid/codewarrior/blob/master/eggs/all_langs.egg)
 * HTTPd view with web socket resources and effects with prismjs,fancybox and jquery
 * Syntax highlight by programming language
 * Resource to control IP address to access codewarrior by allow list.
