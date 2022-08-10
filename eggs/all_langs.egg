@@ -5,7 +5,7 @@
 ::Description::( Token leak ):: 
 ::Relevance::( Low ):: 
 ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
-::Match::#\s*access_token:\s*[a-zA-Z0-9\.\-\_\!\?\#\&\*\:\;\@\(\)\<\>\%]{18,}\s#:: 
+::Match::#\s*access_token:\s*.*#:: 
 
 ::Title::( Bitcoin Wallet addr):: 
 ::Description::( Information leak )::
@@ -191,7 +191,7 @@
 ::Description::( generic key leak ):: 
 ::Relevance::( Low ):: 
 ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
-::Match::#(dbpasswd|dbuser|dbname|dbhost|api_key|apikey|client_secret|clientsecret|access_key|accesskey|secret_key|secretkey)(.{0,20})?['|"]([0-9a-zA-Z-_\/+!{}/=:@#%\*]{4,120})['|"]#:: 
+::Match::#(dbpasswd|dbuser|dbname|dbhost|api_key|apikey|client_secret|clientsecret|access_key|accesskey|secret_key|secretkey)['|"].*#:: 
 
 ::Title::( Generic key leak 2 )::   
 ::Description::( generic key leak ):: 
@@ -367,12 +367,6 @@
 ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
 ::Match::#-----BEGIN( RSA| OPENSSH| DSA| EC| PGP| ENCRYPTED)? PRIVATE KEY( BLOCK)?-----#::
 
-::Title::( Secret 14 ):: 
-::Description::( Information leak )::
-::Relevance::( Low ):: 
-::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
-::Match::#?[_\.\-]?[Kk][Ee][Yy][\'\"]?\s*[=:]\s*[a-zA-Z0-9\'\"_\-][a-zA-Z0-9/+_\-][a-zA-Z0-9/+_\-]+[a-zA-Z0-9/+=_\-][a-zA-Z0-9+=_\-]+#::
-
 ::Title::( Secret 15 ):: 
 ::Description::( Information leak )::
 ::Relevance::( Low ):: 
@@ -463,14 +457,8 @@
 ::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
 ::Match::#--data-urlencode.*[Pp][Aa][Ss][Ss][Ww][Oo]?[Rr]?[Dd]?=.+#::
 
-::Title::( URL auth leak  ):: 	
+:Title::( URL auth leak  ):: 	
 ::Description::( Credentials leak ):: 
 ::Relevance::( Low ):: 
 ::Reference::( https://cwe.mitre.org/data/definitions/798.html ):: 
 ::Match::#[a-zA-Z]{3,10}://[^/\s:@]{3,20}:[^/\s:@]{3,20}@.{1,100}#:: 
-
-::Title::( Secret 30 ):: 
-::Description::( Information leak )::
-::Relevance::( Low ):: 
-::Reference::( https://cwe.mitre.org/data/definitions/798.html )::
-::Match::#([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/])([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/])([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/])+([A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/][A-Za-z0-9\+\/\=][A-Za-z0-9\+\/\=])#::
