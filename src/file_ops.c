@@ -254,7 +254,6 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 							size_t sizereport=strlen(title_clean)+strlen(result2[1])+strlen(description_clean)+strlen(relevance_clean);
 							sizereport+=(strlen(reference_clean)*2)+strlen(match_clean)+strlen(result2[0])+(strlen(path_clean)*2)+strlen(config)+(strlen(language)*2);
 							sizereport+=strlen(icon_alert);
-							sizereport=sizereport*(sizeof(char));
 							sizereport+=512;
 							report=xmallocarray(sizereport,sizeof(char));
 							memset(report,'\0',sizereport-1);
@@ -483,12 +482,13 @@ void view_source(struct mg_connection *c, char *pathdirt)
 
 	fh=NULL;
 
-	size_t len_output=(MAX_file_len+731+256)*sizeof(char);
-	char *output=xmalloc(len_output);
 	char *code=html_entities(buffer);
 	char *lines_clean=html_entities(lines);
 	char *lang_clean=html_entities(lang);
 	char *path_clean=html_entities(path);
+	size_t len_output=(strlen(path_clean)+strlen(lines_clean)+strlen(lang_clean)+strlen(lang_clean)+strlen(code) )*sizeof(char);
+	char *output=xmalloc(len_output);
+
 	memset(output,0,len_output-1);
 
 	snprintf(output,len_output,"<b>Path:</b> %s<br><pre class=\"line-numbers\" data-line=\"%s\"> <code class=\"language-%s\">%s</code></pre>",path_clean,lines_clean,lang_clean,code);
