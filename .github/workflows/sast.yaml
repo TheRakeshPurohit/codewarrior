@@ -1,5 +1,3 @@
-name: CoolerVOid SAST
-
 on:
   push:
     branches: ['master']
