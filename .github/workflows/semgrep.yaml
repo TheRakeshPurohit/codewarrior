@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: '**'
   schedule:
-    - cron: "0 21 * * MON" 
+    - cron: "0 21 * * SAT" 
 jobs:
   semgrep:
     # User definable name of this GitHub Actions job.
