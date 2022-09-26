@@ -11,7 +11,7 @@
 ::Description::( detect cert pinning resource ):: 
 ::Relevance::( Low ):: 
 ::Reference::( Cert pinning resource ):: 
-::Match::#badCertificateCallback|TrustedCertificatesByte|SecurityContext|PiningSslData|SslPinningPlugin#:: 
+::Match::#TrustedCertificatesByte|SecurityContext|PiningSslData|SslPinningPlugin#:: 
 
 ::Title::( Sinks of obfuscation )::	
 ::Description::( notification  )::
@@ -35,7 +35,7 @@
 ::Description::( weak encription )::
 ::Relevance::( Low ):: 
 ::Reference::( https://www.owasp.org/index.php/Testing_for_Weak_Encryption_(OTG-CRYPST-004) )::
-::Match::#encode64|md5|MD5|MD4|RC4|RC2|DES|Blowfish|SHA-1|ECB|CBC#::
+::Match::#encode64|md5|MD5|MD4|MD2|RC4|RC2|DES|Blowfish|SHA-1|ECB|CBC#::
 
 ::Title::( Information Leak):: 
 ::Description::( Information  leak )::
@@ -60,5 +60,41 @@
 ::Relevance::( Low ):: 
 ::Reference::( information disclosure  )::
 ::Match::#minSdkVersion#::
+
+::Title::( Insecure RNG context )::	
+::Description::( Detect use of insecure random )::
+::Relevance::( Low ):: 
+::Reference::( insecure random  )::
+::Match::#Random\..*\(.*\)|Random\(.*\)|\(.*\).random\(\)|java\.util\.Random#::
+
+::Title::( Webview detect )::	
+::Description::( Detect use of webview resources )::
+::Relevance::( Low ):: 
+::Reference::( insecure render of http context  )::
+::Match::#WebView|webkit|\.loadUrl|setJavaScriptEnabled|addJavascriptInterface|setWebContentsDebuggingEnabled|JavascriptChannels#::
+
+::Title::( Sink deserialization )::    
+::Description::( Check if exist lack of safe deserialization )::
+::Relevance::( High ):: 
+::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html )::
+::Match::#\.fasterxml\.jackson\.databind\.ObjectMapper|\.enableDefaultTyping|\.fasterxml\.jackson#::
+
+::Title::( Allow self signed certs and insecure connections ):: 	
+::Description::( Functions to allow self signed certs ):: 
+::Relevance::( High ):: 
+::Reference::( https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md  ):: 
+::Match::#TrustAllSSLSocket-Factory|AllTrustSSLSocketFactory|NonValidatingSSLSocketFactory|net\.SSLCertificateSocketFactory|ALLOW_ALL_HOSTNAME_VERIFIER|\.setDefaultHostnameVerifier|NullHostnameVerifier|badCertificateCallback#::
+
+::Title::( Lack of clipboard protection ):: 	
+::Description::( Malware can use buffer to read to replace data ):: 
+::Relevance::( High ):: 
+::Reference::( https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md  ):: 
+::Match::#ClipboardManager|CLIPBOARD_SERVICE|MODE_WORLD_WRITABLE#::
+
+::Title::( Improper dex load ):: 	
+::Description::( Improper use of dex context ):: 
+::Relevance::( High ):: 
+::Reference::( https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md  ):: 
+::Match::#dalvik\.system\.PathClassLoader|dalvik\.system\.DexFile|dalvik\.system\.DexPathList|dalvik\.system\.DexClassLoader|java\.security\.ClassLoader|java\.net\.URLClassLoader|java\.security\.SecureClassLoader|loadDex|loadClass|DexClassLoader|loadDexFile|dalvik\.system\.PathClassLoader|dalvik\.system\.DexFile|dalvik\.system\.DexPathList|dalvik\.system\.DexClassLoader|java\.security\.ClassLoader|java\.net\.URLClassLoader|java\.security\.SecureClassLoader#::
 
 
