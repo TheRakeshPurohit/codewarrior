@@ -737,7 +737,7 @@ char *get_extension(char *extension)
 		goto etx_end;
 	}
 
-	if(strnstr(extension,".java",extension_size)||strnstr(extension,"jad",extension_size)||strnstr(extension,"class",extension_size))
+	if(strnstr(extension,"java",extension_size)||strnstr(extension,"jad",extension_size)||strnstr(extension,"class",extension_size))
 	{	
 		strlcat(language,"java",16);
 		goto etx_end;
@@ -755,13 +755,13 @@ char *get_extension(char *extension)
 		goto etx_end;
 	}
 
-	if(strnstr(extension,".js",extension_size)||strnstr(extension,".html",extension_size))
+	if(strnstr(extension,".js",extension_size)||strnstr(extension,"html",extension_size))
 	{
 		strlcat(language,"javascript",16);
 		goto etx_end;
 	}
 
-	if(strnstr(extension,".asp",extension_size)||strnstr(language,".cs",extension_size))
+	if(strnstr(extension,"asp",extension_size)||strnstr(language,".cs",extension_size))
 	{
 		strlcat(language,"bash",16);
 		goto etx_end;
