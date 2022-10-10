@@ -34,7 +34,7 @@ char *file_content(const char * filename)
     file_size = pos*(sizeof(char)+2);
     rewind(fp);
     file_contents = xmallocarray((file_size),sizeof(char));
-    memset(file_contents,'\0',file_size-1);
+    burn_mem(file_contents,'\0',file_size-1);
 
     	if (!file_contents) 
 		{
@@ -43,9 +43,9 @@ char *file_content(const char * filename)
     	}
 
     	if (fread(file_contents, file_size, 1, fp) < 1) 
-		{
+	{
         	if (ferror(fp)) 
-			{
+		{
             		fclose(fp);
             		XFREE(file_contents);
             		return NULL;
@@ -108,13 +108,14 @@ char *ReadLines(char * NameFile)
 void *Search_for(char * NameFile,char *regex)
 {
     long int count=1;
-	size_t LineSize=0,CounterSize;
+	size_t LineSize=0,CounterSize=0,total=0;
 	char *lineBuffer=xcalloc(1,1);
  	char *linescount=xcalloc(1,1);
-	char tmpline[3528],counter[8],line[3127];
+	char tmpline[3528],counter[16],line[3127];
 	FILE * arq;
 
-	memset(tmpline,0,3527);
+	clean(tmpline,3527);
+	clean(line,3126);
 
 	arq = fopen(NameFile, "r");
 
@@ -125,8 +126,6 @@ void *Search_for(char * NameFile,char *regex)
 			exit(1);
 		}
 
-	memset(line,'\0',3126);
-
 		while( fgets(line,sizeof line,arq) )  
 		{
 			size_t len=strlen(line);
@@ -136,11 +135,11 @@ void *Search_for(char * NameFile,char *regex)
 				
 			 	LineSize+=3128+512;
 				lineBuffer=xreallocarray(lineBuffer,LineSize,sizeof(char));
-				snprintf(tmpline,3528,"Line: %ld -  %s",count,line);
+				snprintf(tmpline,3527,"Line: %ld -  %s",count,line);
 				strlcat(lineBuffer,tmpline,LineSize);
 				CounterSize+=strlen(linescount)+9;
 				linescount=xreallocarray(linescount,CounterSize,sizeof(char));
-				snprintf(counter,8,"%ld,",count); // add number of lines in URL by param example: 1,21,11,56..
+				snprintf(counter,15,"%ld,",count); // add number of lines in URL by param example: 1,21,11,56..
 				strlcat(linescount,counter,CounterSize);
 				memset(counter,0,7);
 			}
@@ -157,11 +156,12 @@ void *Search_for(char * NameFile,char *regex)
 		}
 
 	arq=NULL;
-
+	
 // anti XSS
 	char *sanitize=html_entities(lineBuffer);
 	char *pack[2];
 	size_t san_len=strlen(sanitize);
+	size_t lin_len=strlen(linescount);
 
 		if(strlen(linescount)>=2)
 		{
@@ -172,8 +172,8 @@ void *Search_for(char * NameFile,char *regex)
 			pack[1]=NULL;
 		}
 
-	void *back=xmalloc( (2*sizeof(char *))*CounterSize+san_len );
-
+	total=(sizeof(char *))*lin_len+san_len+4;
+	void *back=xmalloc(total);
 	memcpy(back, &pack, sizeof(pack));
 
 
@@ -256,7 +256,7 @@ bool fly_to_analyse(char *path, char *config, char * extension, struct mg_connec
 							sizereport+=strlen(icon_alert);
 							sizereport+=512;
 							report=xmallocarray(sizereport,sizeof(char));
-							memset(report,'\0',sizereport-1);
+							burn_mem(report,'\0',sizereport-1);
 							snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Title:</b> %s<br> <b>Description:</b> %s<br> <b>Relevance:</b> %s<br> <b>Reference:</b> <a class=\"fancybox fancybox.iframe\" href=\"%s\">%s</a><br><b>Match:</b> %s <br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br><b>Module:</b> %s <img src=\"img/%s\" width=\"80\" height=\"60\" align=\"right\" ></div><pre> <code class=\"language-%s\">%s</code></pre><br>",title_clean,description_clean,relevance_clean,reference_clean,reference_clean,match_clean,path_clean,language,result2[1],path_clean,config,icon_alert,language,result2[0]);
 
 
@@ -489,7 +489,7 @@ void view_source(struct mg_connection *c, char *pathdirt)
 	size_t len_output=(strlen(path_clean)+strlen(lines_clean)+strlen(lang_clean)+strlen(lang_clean)+strlen(code) )*sizeof(char);
 	char *output=xmalloc(len_output);
 
-	memset(output,0,len_output-1);
+	burn_mem(output,'\0',len_output-1);
 
 	snprintf(output,len_output,"<b>Path:</b> %s<br><pre class=\"line-numbers\" data-line=\"%s\"> <code class=\"language-%s\">%s</code></pre>",path_clean,lines_clean,lang_clean,code);
 
@@ -553,7 +553,7 @@ void warrior_sink (const char * dir_name, char * extension, char *sink,  struct 
 					char *sink_clean=html_entities(sink);
 					sizereport+=strlen(sink_clean)+(strlen(path_clean)*2)+(strlen(language)*2)+512;	
 					char *report=xmalloc(sizereport);
-					memset(report,'\0',sizereport-1);		
+					burn_mem(report,'\0',sizereport-1);		
 
 		
 					snprintf(report,sizereport,"<img src=\"img/kunai.png\" width=\"80\" height=\"60\" align=\"center\" ><div class=\"path well\"><b>Sink:</b> %s<br> <b>Lines:</b> %s<br><b>Path:</b> <a class=\"fancybox fancybox.iframe\" href=\"viewcode.html?path=%s&lang=%s&lines=%s\">%s</a><br></div><pre> <code class=\"language-%s\">%s</code></pre><br>",sink_clean,result[1],path_clean,language,result[1],path_clean,language,result[0]);

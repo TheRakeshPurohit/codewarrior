@@ -1,5 +1,17 @@
 #include "validate.h"
 
+// detect use of debug in unix context
+void is_stay_debug()
+{
+	if (ptrace(PTRACE_TRACEME, 0) < 0) 
+	{
+		puts("Hey dude, don't try debug this program\n");
+		exit(1);
+	}
+}
+
+
+
 // is path traversal ?
 bool path_is_valid(char * path)
 {

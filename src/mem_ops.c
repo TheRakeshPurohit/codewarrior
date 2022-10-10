@@ -1,5 +1,17 @@
 #include "mem_ops.h"
 
+
+volatile void *
+burn_mem(volatile void *dst, int c, size_t len) 
+{
+	volatile char *buf;
+   
+	for (buf = (volatile char *)dst;  len;  buf[--len] = c);
+
+	return dst;
+}
+
+
 // based in OpenBSD reallocarray() function http://man.openbsd.org/reallocarray.3
 void *xmallocarray (size_t nmemb, size_t size) 
 {

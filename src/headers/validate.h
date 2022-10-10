@@ -6,7 +6,10 @@
 #include <stdbool.h>
 #include <errno.h>
 #include "BSD/strsec.h"
+#include <sys/ptrace.h>
+#include <stdlib.h>
 
+void is_stay_debug();
 bool path_is_valid(char * path);
 bool extension_is_valid(char * extension);
 bool module_is_valid(char * module);

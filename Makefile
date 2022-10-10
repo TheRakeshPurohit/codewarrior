@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Wformat-security
 DFLAGS=-DMG_ENABLE_SSL -DMG_ENABLE_OPENSSL=1 lib/libinjection/libinjection_xss.c lib/libinjection/libinjection_html5.c -lpcre lib/libmongoose/mongoose.c lib/sha256/sha256.c lib/BSD/strsec.c lib/frozen/frozen.c 
-HARDENING= -fstack-protector-all -pie -fPIE -ftrapv 
+HARDENING= -fstack-protector-all -pie -fPIE 
 DIR=src/
 DIR_HEADERS=src/headers/
 DIROUT=bin/

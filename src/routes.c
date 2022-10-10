@@ -11,14 +11,14 @@ void broadcast(struct mg_connection *c, struct mg_ws_message *msg)
 
 	size_t sizeaction=0;
   	short form1=1,form2=1,form3=1,form4=1,form5=1,form6=1,counter_json=0;
-  	char buf[8048],total_str[128];
+  	char buf[10048],total_str[128];
   	char *action,*egg,*path,*extension,*sink,*text_module,*csrf_token;
 
-	memset(buf,0,8047);
-	memset(total_str,0,63);
+	clean(buf,sizeof(buf)-1); //last for canary
+	clean(total_str,sizeof(total_str)-1);
 
 //limit buffer, if not limit causes stack overflow...
-	if(msg->data.len>=8048)
+	if(msg->data.len>=10047)
 		return;
 
 	if( msg->data.ptr )
@@ -153,7 +153,7 @@ void broadcast(struct mg_connection *c, struct mg_ws_message *msg)
 						//char *content=html_entities(module_content); // if need sanitize
 						size_t size_form=module_len+150+strlen(token); 
 						char *form_edit=xmallocarray(size_form,sizeof(char));
-						
+					        clean(form_edit,size_form-1);	
 
 						snprintf(form_edit,size_form,"<input type=\"hidden\" id=\"csrf_token\" value=\"%s\"><br><textarea id=\"text_module\" rows=\"30\" cols=\"140\" >%s</textarea><br><button id=\"save\">save</button><br>", token, module_content);		
 

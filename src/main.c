@@ -74,6 +74,7 @@ static void init_server_warrior(struct mg_connection *c, int ev, void *ev_data, 
 int main()
 {
 // global salt generator, for anti-csrf token
+	is_stay_debug();
 	memset(salt,0,15);
 	rand_str(salt,15);
 	// start lib mongoose
