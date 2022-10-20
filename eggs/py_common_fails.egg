@@ -73,11 +73,17 @@
 ::Reference::( https://www.owasp.org/index.php/Command_Injection ):: 
 ::Match::#eval[:space:]*\( "#:: 
 
-::Title::( SHow inputs like get/post/cookies etc... )::	
+::Title::( SHow web inputs to search SSTI or XSS part 1 )::	
 ::Description::( notification input here )::
 ::Relevance::( Low ):: 
-::Reference::( search SQLi,XSS etc... )::
-::Match::#request\.|cookie|session|useragent|\.get#::
+::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html )::
+::Match::#="\{\{#::
+
+::Title::( SHow web inputs to search SSTI or XSS part 2 )::	
+::Description::( notification input here )::
+::Relevance::( Low ):: 
+::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html )::
+::Match::#request\.|cookie|session|useragent|\.get#|safe|mark_safe|\.Markup|\{% autoescape false \%\}#::
 
 ::Title::( Sink of SQL query )::	
 ::Description::( notification possible SQL injection )::
