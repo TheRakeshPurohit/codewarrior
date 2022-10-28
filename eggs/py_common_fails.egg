@@ -120,3 +120,9 @@
 ::Relevance::( High ):: 
 ::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html )::
 ::Match::#pickle|[Pp]ickle#::
+
+::Title::( Django route with path confusion)::    
+::Description::( Route without proper regular expression )::
+::Relevance::( Medium ):: 
+::Reference::( https://sajjadium.github.io/files/usenixsec2020wcd_paper.pdf )::
+::Match::#r'\^(?!.*\$)#::
