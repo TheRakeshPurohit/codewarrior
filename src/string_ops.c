@@ -827,6 +827,14 @@ char *get_relevance_icon(char *relevance)
 		goto icon_end;
 	}
 
+
+	if(strnstr(relevance,"Alert",relevance_size)||strnstr(relevance,"alert",relevance_size))
+	{
+		strlcat(icon_alert,"light.png",16);
+		goto icon_end;
+	}
+
+
 	icon_end:
 	return icon_alert;
 }
