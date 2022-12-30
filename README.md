@@ -8,6 +8,9 @@ The tool uses Moongose HTTPd resources with TLS, design pattern follows the KISS
 ## Video demo 
 https://www.youtube.com/watch?v=VmTQSGZ1QaU
 
+## Console version
+* https://github.com/CoolerVoid/Mosca
+
 ## Features
 * Resources to load and search custom rules
 * Resources to recursive search in files following sink point by regex rule and file extension
