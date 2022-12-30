@@ -1,0 +1,63 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::EGG:COMMON:PHP:FAILURES
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+::Title::( File Upload point ):: 	
+::Description::( File Manipulation. this is notification ):: 
+::Relevance::( Low ):: 
+::Reference::( file manipulation etc... ):: 
+::Match::#->file|->store#:: 
+
+::Title::( Possible Command injection ):: 	
+::Description::( Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. ):: 
+::Relevance::( High ):: 
+::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html#command-injection ):: 
+::Match::#(shell|eval|extract|system|execve|exec|popen|proc_open|proc_get_status|proc_nice|passthru|assert|create_function)\s?\(.*\$#:: 
+
+::Title::( Possible XSS 1 )::	
+::Description::( notification at possible XSS )::
+::Relevance::( High ):: 
+::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html )::
+::Match::#(echo|print|print_r|exit|die|printf|vprintf)\s?\(.*\$#::
+
+::Title::( Possible XSS 2 )::	
+::Description::( notification at possible XSS )::
+::Relevance::( High ):: 
+::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html )::
+::Match::#\{\!\!.*\$#::
+
+::Title::( SHow inputs like get/post/cookies etc... )::	
+::Description::( notification )::
+::Relevance::( Low ):: 
+::Reference::( search SQLi etc... )::
+::Match::#->input|->path|->url|->fullUrl|->download|->method|->header|->bearerToken|->accepts|->all|->collect|->query|->string|->cookie#::
+
+::Title::( SQL point of attention )::	
+::Description::( notification possible SQL injection )::
+::Relevance::( High ):: 
+::Reference::( https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html#sql-injection )::
+::Match::#Raw\s?\(.*\$|statement\s?\(.*\$#::
+
+::Title::( Object injection )::	
+::Description::( Do not use unserialize function with user-supplied input. Unserialization can result in code being loaded and executed due to object instantiation and autoloading. )::
+::Relevance::( High ):: 
+::Reference::( https://www.owasp.org/index.php/PHP_Object_Injection )::
+::Match::#unserialize\s?\(.*\$#::
+
+::Title::( Detect insecure communication )::   
+::Description::( Communication without TLS )::
+::Relevance::( High ):: 
+::Reference::( Insecure communication  )::
+::Match::#ftp:|http:|smtp:|amqp:|tcp:|udp:|ws:|socket#::
+
+::Title::( Detect debug mode ON )::   
+::Description::( debug mode on )::
+::Relevance::( High ):: 
+::Reference::( Insecure response during errors  )::
+::Match::#APP_DEBUG\s?=\s?(true|True)#::
+
+::Title::( Open Redirect )::   
+::Description::( redirect to uncontrolled url )::
+::Relevance::( High ):: 
+::Reference::( Insecure redirect  )::
+::Match::#redirect\s?\(.*\$#::
+
